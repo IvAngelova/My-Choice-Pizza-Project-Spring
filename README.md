@@ -1,1 +1,1 @@
-# My-Choise-Pizza-Project-Spring
+# My-Choice-Pizza-Project-Spring
