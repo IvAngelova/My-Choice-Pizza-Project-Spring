@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head th:replace="fragments/commons :: head">
+</head>
+
+<body>
+
+<nav th:replace="fragments/commons :: nav"></nav>
+
+<div class="container">
+    <h2 class="text-center text-white pt-5">Регистрация</h2>
+    <form th:action="@{/users/register}" th:method="post" th:object="${userRegisterBindingModel}"
+          class="my-form mx-auto col-md-8 d-flex flex-column justify-content-center">
+        <div class="row">
+            <div class="form-group col-md-6 mb-2">
+                <label for="fullName" class="text-dark font-weight-bold">Име и фамилия</label>
+                <input id="fullName" th:field="*{fullName}" type="text" minlength="4"
+                       maxlength="30" required
+                       class="form-control" placeholder="Full name"/>
+                <p th:if="${#fields.hasErrors('fullName')}" th:errors = "*{fullName}" class="text-danger font-weight-bold">
+                    Full name is required.
+                </p>
+            </div>
+            <div class="form-group col-md-6 mb-2">
+                <label for="phoneNumber" class="text-dark font-weight-bold">Телефон за връзка</label>
+                <input id="phoneNumber" th:field="*{phoneNumber}" type="text" required class="form-control" placeholder="Phone number"/>
+                <p th:if="${#fields.hasErrors('phoneNumber')}" th:errors = "*{phoneNumber}" class="text-danger font-weight-bold">
+                    Phone number is required.
+                </p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-md-6 mb-2">
+                <label for="username" class="text-dark font-weight-bold">Потребителско име</label>
+                <input id="username" th:field="*{username}" type="text" minlength="4" maxlength="20" required
+                       class="form-control" placeholder="Username"/>
+                <p th:if="${#fields.hasErrors('username')}" th:errors = "*{username}" class="text-danger font-weight-bold">
+                    Username is required.
+                </p>
+            </div>
+            <div class="form-group col-md-6 mb-2">
+                <label for="address" class="text-dark font-weight-bold">Адрес на доставка</label>
+                <input id="address" th:field="*{address}" type="text" minlength="4" maxlength="60" required
+                       class="form-control" placeholder="Address"/>
+                <p th:if="${#fields.hasErrors('address')}" th:errors = "*{address}" class="errors text-danger font-weight-bold">
+                    Address is required.
+                </p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-md-6 mb-2">
+                <label for="password" class="text-dark font-weight-bold">Парола</label>
+                <input id="password" th:field="*{password}" type="password" minlength="4"
+                       maxlength="20" required class="form-control" placeholder="Password"/>
+                <p th:if="${#fields.hasErrors('password')}" th:errors = "*{password}" class="errors text-danger font-weight-bold">
+                    Password is required.
+                </p>
+            </div>
+            <div class="form-group col-md-6 mb-2">
+                <label for="confirmPassword" class="text-dark font-weight-bold">Потвърди парола</label>
+                <input id="confirmPassword" th:field="*{confirmPassword}" type="password"
+                       minlength="4" maxlength="20" required class="form-control" placeholder="Confirm password"/>
+                <p th:if="${#fields.hasErrors('confirmPassword')}" th:errors = "*{confirmPassword}" class="errors text-danger font-weight-bold">
+                    Confirm Password is required.
+                </p>
+            </div>
+        </div>
+
+        <div th:if="${!passwordMatch}" class="row">
+            <div class="form-group col-md-12 mb-6">
+                <p class="errors text-danger font-weight-bold">
+                    Двете пароли не съвпадат!
+                </p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <div class="button-holder d-flex justify-content-center pt-2" >
+                    <input type="submit" class="btn btn-info btn-lg" value="Създай профил"/>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<footer th:replace="fragments/commons :: footer">
+</footer>
+
+</body>
+
+</html>

@@ -1,0 +1,106 @@
+body {
+    background-image: url('../images/pizza-background.jpg');
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+nav a{
+    padding: 20px;
+}
+
+nav a span {
+    color: rgb(233, 73, 10);
+
+}
+
+.navbar-custom .navbar-nav .nav-link  {
+    color: rgb(233, 73, 10);
+}
+
+nav div ul li{
+    padding: 10px;
+}
+
+.btn{
+    background-color: rgb(39, 94, 12);
+    color: white;
+    border: solid 2px white;  
+}
+
+
+.btn:hover {
+    border: solid 2px rgb(39, 94, 12);
+    background: white;
+    color: rgb(39, 94, 12);
+}
+
+/*remove custom bootstrap css*/
+.btn-primary:hover,.btn-primary:focus,.btn-primary:active,
+.btn-primary:active:focus:not(:disabled):not(.disabled),
+.btn:focus, .btn:active, .btn:hover{
+    box-shadow: none!important;
+    outline: 0;
+}
+
+/* index page */
+
+.my-main-section{
+    margin-top: 120px;
+    margin-bottom: 100px;
+    border-bottom: solid 3px rgb(39, 94, 12) ;
+    border-top: solid 3px rgb(39, 94, 12) ;
+}
+
+
+footer {
+    /*margin-top: 2rem;*/
+    background:white;
+    color: rgb(39, 94, 12);
+    text-align: center;
+    /*padding: 0.5rem;*/
+}
+
+.footer{
+    color: rgb(39, 94, 12);
+}
+
+.footer a{
+    text-decoration: none;
+    color: rgb(39, 94, 12);
+}
+
+.footer a:hover{
+color: #303030;
+} 
+
+/* login, register */
+
+form.my-form {
+    background-image: linear-gradient(to bottom right, rgba(226, 162, 77, 0.8), rgba(204, 167, 118, 0.952));
+    padding:20px 30px;
+    border-radius: 20px;
+}
+
+.container{
+    padding-bottom: 90px;
+}
+
+/* prices, about */
+.main-fone{
+    background-image: linear-gradient(to bottom right, rgba(226, 162, 77, 0.8), white);
+    padding:20px 30px;
+    border-radius: 20px;
+}
+
+/* order */
+.card-custom {
+    max-width: 133px;
+}
+
+.container-ingredients{
+    padding-bottom: 30px;
+}
+
+

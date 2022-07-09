@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="fragments/commons :: head">
+</head>
+
+<body>
+
+<nav th:replace="fragments/commons :: nav"></nav>
+
+<div class="container">
+    <h2 class="text-center text-white pt-5">За нас</h2>
+    <section class="main-fone mx-auto col-md-10 d-flex flex-column justify-content-center">
+        <p>
+            При нас ти си добре дошъл да съдадеш твоята пица!
+        </p>
+        <p>
+            Поръчай онлайн през профила си или на нашия телефон за поръчки.
+        </p>
+        <div class="row">
+            <div class="col mt-4">
+                <h4>Работно време</h4>
+                <p> Понеделник - Събота: 11.00 - 22.00ч.</p>
+                <p> Неделя: почивен ден.</p>
+            </div>
+            <div class="col mt-4">
+                <h4>Контакти</h4>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <h4>Адрес</h4>
+            </div>
+        </div>
+    </section>
+</div>
+
+    <footer th:replace="fragments/commons :: footer">
+    </footer>
+
+</body>
+
+</html>
