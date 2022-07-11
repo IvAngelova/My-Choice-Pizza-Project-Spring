@@ -2,7 +2,10 @@ package bg.softuni.mychoicepizza.service.impl;
 
 import bg.softuni.mychoicepizza.model.entity.IngredientEntity;
 import bg.softuni.mychoicepizza.model.entity.PictureEntity;
+import bg.softuni.mychoicepizza.model.entity.enums.CategoryNameEnum;
 import bg.softuni.mychoicepizza.model.service.IngredientServiceModel;
+import bg.softuni.mychoicepizza.model.view.IngredientViewModel;
+import bg.softuni.mychoicepizza.model.view.PictureViewModel;
 import bg.softuni.mychoicepizza.repository.IngredientRepository;
 import bg.softuni.mychoicepizza.repository.PictureRepository;
 import bg.softuni.mychoicepizza.service.CategoryService;
@@ -14,6 +17,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class IngredientServiceImpl implements IngredientService {
@@ -46,6 +51,25 @@ public class IngredientServiceImpl implements IngredientService {
         pictureEntity.setIngredient(ingredientEntity);
 
         pictureRepository.save(pictureEntity);
+    }
+
+    @Override
+    public List<IngredientViewModel> findAllIngredientsByCategory(CategoryNameEnum categoryNameEnum) {
+
+       return ingredientRepository.findAllByCategory_Name(categoryNameEnum)
+                .stream()
+                .map(ingredientEntity -> {
+                    IngredientViewModel ingredientViewModel = modelMapper.map(ingredientEntity, IngredientViewModel.class);
+                    PictureViewModel pictureViewModel = new PictureViewModel();
+                    pictureViewModel.setTitle(ingredientEntity.getPicture().getTitle())
+                                    .setUrl(ingredientEntity.getPicture().getUrl());
+                    ingredientViewModel.setPicture(pictureViewModel);
+                    return ingredientViewModel;
+                })
+                .collect(Collectors.toList());
+
+
+
     }
 
     private PictureEntity createPictureEntity(MultipartFile file, String ingredientName) throws IOException {

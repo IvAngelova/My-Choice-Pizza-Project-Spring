@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head th:replace="fragments/commons :: head">
+</head>
+
+<body>
+
+<nav th:replace="fragments/commons :: nav"></nav>
+
+    <div class="container container-ingredients">
+        <h2 class="text-center text-white pt-5">Направи си пица</h2>
+        <section class="main-fone mx-auto col-md-10 ">
+            <h3 class="text-dark">Избери размер</h3>
+
+            <div th:each="s : ${T(bg.softuni.mychoicepizza.model.entity.enums.SizeEnum).values()}"
+                 class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="size" th:id="${s}"
+                    th:value="${s}">
+                <label class="form-check-label" th:for="${s}" th:text="${s.name().toLowerCase()}"></label>
+            </div>
+<!--            <div class="form-check form-check-inline">-->
+<!--                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio"-->
+<!--                    value="option">-->
+<!--                <label class="form-check-label" for="inlineRadio">Средна</label>-->
+<!--            </div>-->
+        </section>
+    </div>
+
+    <div class="container container-ingredients">
+        <section class="main-fone mx-auto col-md-10 ">
+            <h3 class="text-dark">Избери основа (всяка основа включва кашкавал)</h3>
+
+            <div th:each="b : ${T(bg.softuni.mychoicepizza.model.entity.enums.PizzaBaseEnum).values()}" class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="base" th:id="${b}"
+                    th:value="${b}">
+                <label class="form-check-label" th:for="${b}" th:text="${b.name().toLowerCase()}"></label>
+            </div>
+
+        </section>
+    </div>
+
+    <div class="container">
+        <section class="main-fone mx-auto col-md-10 ">
+            <h3 class="text-dark">Вашите съставки</h3>
+            <h6>Колбаси</h6>
+            <div class="container container-ingredients">
+                <div class="row">
+
+                    <div th:each="m : ${meat}" th:object="${m}" class="card card-custom m-1">
+                        <img th:src="*{picture.getUrl()}" class="card-img-top" th:alt="*{picture.getTitle()}" width="150px" height="110px" >
+                        <div class="card-body">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" name="inlineCheckboxOptions" th:id="${m}"
+                                    value="option1">
+                                <label class="form-check-label" th:for="${m}" th:text="*{name}"></label>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+<!--                                <th:block th:if="*{canDelete}">-->
+                                    <form th:action="@{/ingredients/{id}(id=*{id})}" th:method="delete">
+                                        <input type="submit" class="btn" value="Изтрий"/>
+                                    </form>
+<!--                                </th:block>-->
+                            </div>
+                        </div>
+                    </div>
+
+<!--                    <div class="card card-custom m-1">-->
+<!--                        <img src="/images/troyanska-lukanka.jpg" class="card-img-top" alt="lukanka-img" width="150px"-->
+<!--                            height="110px">-->
+<!--                        <div class="card-body">-->
+<!--                            <div class="form-check form-check-inline">-->
+<!--                                <input class="form-check-input" type="checkbox" name="inlineRadioOptions" id="inlineRadio1"-->
+<!--                                    value="option1">-->
+<!--                                <label class="form-check-label" for="inlineRadio1">луканка</label>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+                  
+                </div>
+            </div>
+
+            <h6>Зеленчуци</h6>
+
+            <div class="container container-ingredients">
+                <div class="row">
+
+                    <div  th:each="v : ${vegetables}" th:object="${v}" class="card card-custom m-1">
+                        <img th:src="*{picture.getUrl()}" class="card-img-top" th:alt="*{picture.getTitle()}" width="150px"
+                            height="110px">
+                        <div class="card-body">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" name="inlineRadioOptions" th:id="${v}"
+                                    value="option1">
+                                <label class="form-check-label" th:for="${v}" th:text="*{name}"></label>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <!--                                <th:block th:if="*{canDelete}">-->
+                                <form th:action="@{/ingredients/{id}(id=*{id})}" th:method="delete">
+                                    <input type="submit" class="btn" value="Изтрий"/>
+                                </form>
+                                <!--                                </th:block>-->
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+            <h6>Млечни и яйце</h6>
+
+            <div class="container container-ingredients">
+                <div class="row">
+                    <div th:each="m : ${milky}" th:object="${m}" class="card card-custom m-1">
+                        <img th:src="*{picture.getUrl()}" class="card-img-top" th:alt="*{picture.getTitle()}" width="150px"
+                            height="110px">
+                        <div class="card-body">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" name="inlineRadioOptions" th:id="${m}"
+                                    value="option1">
+                                <label class="form-check-label" th:for="${m}" th:text="*{name}"></label>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <!--                                <th:block th:if="*{canDelete}">-->
+                                <form th:action="@{/ingredients/{id}(id=*{id})}" th:method="delete">
+                                    <input type="submit" class="btn" value="Изтрий"/>
+                                </form>
+                                <!--                                </th:block>-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col">
+                    <div class="button-holder d-flex justify-content-center pb-3">
+                        <a class="btn" th:href="@{/ingredients/add}">Добави продукт</a>
+                        <!-- <input type="submit" class="btn btn-lg" value="Поръчай своята пица!" /> -->
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <div class="button-holder d-flex justify-content-center">
+                        <input type="submit" class="btn btn-lg" value="Поръчай своята пица!" />
+                    </div>
+                </div>
+            </div>
+
+        </section>
+    </div>
+
+
+    <footer th:replace="fragments/commons :: footer">
+    </footer>
+
+</body>
+
+</html>

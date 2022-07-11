@@ -97,6 +97,7 @@ form.my-form {
 /* order */
 .card-custom {
     max-width: 133px;
+    padding: 0;
 }
 
 .container-ingredients{
