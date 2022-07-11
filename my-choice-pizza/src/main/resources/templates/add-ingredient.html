@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="fragments/commons :: head">
+</head>
+<body>
+<nav th:replace="fragments/commons :: nav"></nav>
+
+<div class="container">
+    <h2 class="text-center text-white pt-5">Добави продукт</h2>
+    <form th:method="post" th:action="@{/ingredients/add}" th:object="${ingredientAddBindingModel}" enctype="multipart/form-data"
+          class="my-form mx-auto col-md-6 col-lg-4 d-flex flex-column justify-content-center">
+        <div class="form-group">
+            <label for="name" class="text-dark font-weight-bold">Име</label>
+            <input id="name" name="name" th:field="*{name}"
+                   type="text" min="2" max="50" class="form-control" placeholder="Name" />
+            <p class="errors text-danger">
+                Name is required.
+            </p>
+        </div>
+        <div class="form-group">
+            <label for="picture" class="text-dark font-weight-bold">Снимка</label><br>
+<!--            <input name="title" type="text"  min="2" max="50" class="form-control" placeholder="Заглавие на снимката" /><br>-->
+            <input id="picture" name="picture" th:field="*{picture}" type="file"/>
+            <p class="invalid-feedback errors text-danger">
+                Picture is required.
+            </p>
+        </div>
+        <div class="form-group">
+            <label for="category" class="text-dark font-weight-bold">Категория</label>
+            <select th:field="*{category}" id="category" class="form-control">
+                <option selected value="">- Избери категория -</option>
+                <option th:each="category : ${T(bg.softuni.mychoicepizza.model.entity.enums.CategoryNameEnum).values()}"
+                        th:text="${category}" th:value="${category}" >
+<!--                        th:selected="${category} == *{category}"-->
+                </option>
+            </select>
+            <p class="errors text-danger">
+                Category is required.
+            </p>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <div class="button-holder d-flex justify-content-center">
+                    <input type="submit" class="btn btn-info w-50" value="Добави продукт" />
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<footer th:replace="fragments/commons :: footer">
+</footer>
+
+</body>
+</html>

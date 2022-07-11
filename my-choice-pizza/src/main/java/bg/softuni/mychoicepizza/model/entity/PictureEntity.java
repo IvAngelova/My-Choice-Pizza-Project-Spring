@@ -9,13 +9,13 @@ import javax.persistence.Table;
 @Table(name = "pictures")
 public class PictureEntity extends BaseEntity{
 
-    @Column(nullable = false)
+    @Column
     private String title;
 
     @Column(columnDefinition = "TEXT", nullable = false)
     private String url;
 
-    @Column(nullable = false)
+    @Column
     private String publicId;
 
     @OneToOne(optional = false)
