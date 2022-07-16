@@ -6,12 +6,10 @@ import bg.softuni.mychoicepizza.service.IngredientService;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.transaction.Transactional;
 import javax.validation.Valid;
 import java.io.IOException;
 
@@ -48,7 +46,7 @@ public class IngredientController {
 
         ingredientService.addIngredient(modelMapper.map(ingredientAddBindingModel, IngredientServiceModel.class));
 
-        return "redirect:/";
+        return "redirect:/pizza/builder";
     }
 
     @ModelAttribute
@@ -56,5 +54,14 @@ public class IngredientController {
         return new IngredientAddBindingModel();
     }
 
+
+    @Transactional
+    @DeleteMapping("/delete/{id}")
+    public String delete(@PathVariable("id") Long id) {
+
+        ingredientService.deleteIngredientById(id);
+
+        return "redirect:/pizza/builder";
+    }
 
 }

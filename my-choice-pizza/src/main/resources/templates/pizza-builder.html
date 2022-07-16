@@ -60,7 +60,7 @@
                         <div class="card-body">
                             <div class="row">
 <!--                                <th:block th:if="*{canDelete}">-->
-                                    <form th:action="@{/ingredients/{id}(id=*{id})}" th:method="delete">
+                                    <form th:action="@{/ingredients/delete/{id}(id=*{id})}" th:method="delete">
                                         <input type="submit" class="btn" value="Изтрий"/>
                                     </form>
 <!--                                </th:block>-->
@@ -101,7 +101,7 @@
                         <div class="card-body">
                             <div class="row">
                                 <!--                                <th:block th:if="*{canDelete}">-->
-                                <form th:action="@{/ingredients/{id}(id=*{id})}" th:method="delete">
+                                <form th:action="@{/ingredients/delete/{id}(id=*{id})}" th:method="delete">
                                     <input type="submit" class="btn" value="Изтрий"/>
                                 </form>
                                 <!--                                </th:block>-->
@@ -130,7 +130,7 @@
                         <div class="card-body">
                             <div class="row">
                                 <!--                                <th:block th:if="*{canDelete}">-->
-                                <form th:action="@{/ingredients/{id}(id=*{id})}" th:method="delete">
+                                <form th:action="@{/ingredients/delete/{id}(id=*{id})}" th:method="delete">
                                     <input type="submit" class="btn" value="Изтрий"/>
                                 </form>
                                 <!--                                </th:block>-->

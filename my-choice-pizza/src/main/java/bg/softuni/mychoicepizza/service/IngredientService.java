@@ -11,4 +11,6 @@ public interface IngredientService {
     void addIngredient(IngredientServiceModel ingredientServiceModel) throws IOException;
 
     List<IngredientViewModel> findAllIngredientsByCategory(CategoryNameEnum categoryNameEnum);
+
+    void deleteIngredientById(Long id);
 }

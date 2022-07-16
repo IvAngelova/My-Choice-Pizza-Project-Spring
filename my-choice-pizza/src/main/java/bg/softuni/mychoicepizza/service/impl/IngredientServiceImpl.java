@@ -18,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -56,20 +57,33 @@ public class IngredientServiceImpl implements IngredientService {
     @Override
     public List<IngredientViewModel> findAllIngredientsByCategory(CategoryNameEnum categoryNameEnum) {
 
-       return ingredientRepository.findAllByCategory_Name(categoryNameEnum)
+        return ingredientRepository.findAllByCategory_Name(categoryNameEnum)
                 .stream()
                 .map(ingredientEntity -> {
                     IngredientViewModel ingredientViewModel = modelMapper.map(ingredientEntity, IngredientViewModel.class);
                     PictureViewModel pictureViewModel = new PictureViewModel();
                     pictureViewModel.setTitle(ingredientEntity.getPicture().getTitle())
-                                    .setUrl(ingredientEntity.getPicture().getUrl());
+                            .setUrl(ingredientEntity.getPicture().getUrl());
                     ingredientViewModel.setPicture(pictureViewModel);
                     return ingredientViewModel;
                 })
                 .collect(Collectors.toList());
 
 
+    }
 
+    @Override
+    public void deleteIngredientById(Long id) {
+        Optional<IngredientEntity> ingredientOpt = ingredientRepository.findById(id);
+        if (ingredientOpt.isEmpty()) {
+            //TODO
+            throw new IllegalArgumentException();
+        }
+        String publicId = ingredientOpt.get().getPicture().getPublicId();
+        if (cloudinaryService.delete(publicId)) {
+            pictureRepository.deleteByPublicId(publicId);
+            ingredientRepository.deleteById(id);
+        }
     }
 
     private PictureEntity createPictureEntity(MultipartFile file, String ingredientName) throws IOException {

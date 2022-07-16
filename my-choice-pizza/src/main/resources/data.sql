@@ -60,7 +60,7 @@ VALUES (22, 'яйце', 2);
 
 --pictures
 INSERT INTO pictures(public_id, title, url, ingredient_id)
-VALUES ('pecheni-chuski_qnnv9a', 'червени чушки',  'https://res.cloudinary.com/dlvuxjqtu/image/upload/v1657530431/pecheni-chuski_qnnv9a.jpg', 1);
+VALUES ('pecheni-chuski_kcrr1x', 'червени чушки',  'https://res.cloudinary.com/dlvuxjqtu/image/upload/v1657966342/pecheni-chuski_kcrr1x.jpg', 1);
 INSERT INTO pictures(public_id, title, url, ingredient_id)
 VALUES('becon_aitnny', 'бекон', 'https://res.cloudinary.com/dlvuxjqtu/image/upload/v1657548756/becon_aitnny.jpg', 15);
 INSERT INTO pictures(public_id, title, url, ingredient_id)
@@ -68,7 +68,7 @@ VALUES('proshuto_scvejz', 'прошуто', 'https://res.cloudinary.com/dlvuxjqt
 INSERT INTO pictures(public_id, title, url, ingredient_id)
 VALUES('pepperoni_ppcikt', 'пеперони', 'https://res.cloudinary.com/dlvuxjqtu/image/upload/v1657548757/pepperoni_ppcikt.jpg', 12);
 INSERT INTO pictures(public_id, title, url, ingredient_id)
-VALUES('ham_r30lyc', 'шунка', 'https://res.cloudinary.com/dlvuxjqtu/image/upload/v1657548756/ham_r30lyc.jpg', 9);
+VALUES('ham_t5yaip', 'шунка', 'https://res.cloudinary.com/dlvuxjqtu/image/upload/v1657966362/ham_t5yaip.jpg', 9);
 INSERT INTO pictures(public_id, title, url, ingredient_id)
 VALUES('lukanka_hqofwp', 'луканка', 'https://res.cloudinary.com/dlvuxjqtu/image/upload/v1657548756/lukanka_hqofwp.jpg', 10);
 INSERT INTO pictures(public_id, title, url, ingredient_id)
