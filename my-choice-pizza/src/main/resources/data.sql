@@ -104,3 +104,12 @@ VALUES('maslini_x9alis', 'маслини', 'https://res.cloudinary.com/dlvuxjqtu
 INSERT INTO pictures(public_id, title, url, ingredient_id)
 VALUES('tomatoes_jtue0t', 'домати', 'https://res.cloudinary.com/dlvuxjqtu/image/upload/v1657551913/tomatoes_jtue0t.jpg', 4);
 
+--prices
+INSERT INTO prices(id, pizza_size, additional_product_price, base_price)
+VALUES (1, 'МАЛКА', 0.50, 7.70);
+INSERT INTO prices(id, pizza_size, additional_product_price, base_price)
+VALUES (2, 'СРЕДНА', 0.70, 9.80);
+INSERT INTO prices(id, pizza_size, additional_product_price, base_price)
+VALUES (3, 'ГОЛЯМА', 1.00, 14.60);
+INSERT INTO prices(id, pizza_size, additional_product_price, base_price)
+VALUES (4, 'ПАРТИ', 1.60, 19.80);

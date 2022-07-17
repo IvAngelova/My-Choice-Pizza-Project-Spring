@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head th:replace="fragments/commons :: head">
+</head>
+
+<body>
+
+<nav th:replace="fragments/commons :: nav"></nav>
+
+    <div class="container">
+        <h2 class="text-center text-white pt-5">Промяна на цена</h2>
+        <form th:object="${priceEditBindingModel}" th:action="@{/priceList/{id}/edit(id=*{id})}" th:method="patch"
+            class="my-form mx-auto col-md-6 col-lg-4 d-flex flex-column justify-content-center">
+            <h4 class="text-dark" th:text="|Размер на пицата: *{pizzaSize.name().toLowerCase()}|"></h4>
+            <label for="basePrice" class="text-dark font-weight-bold p-2">Цена - основна:</label>
+            <input id="basePrice" th:field="*{basePrice}" type="number" step="0.01" required
+                class="form-control" placeholder="basePrice" />
+            <p th:if="${#fields.hasErrors('basePrice')}" th:errors = "*{basePrice}" class="errors text-danger font-weight-bold">
+                Price is required.
+            </p>
+
+            <label for="additionalProductPrice" class="text-dark font-weight-bold p-2">Цена за допълнителен продукт:</label>
+            <input id="additionalProductPrice" th:field="*{additionalProductPrice}"
+                type="number" step="0.01" required  class="form-control" placeholder="additionalProductPrice" />
+            <p th:if="${#fields.hasErrors('additionalProductPrice')}" th:errors = "*{additionalProductPrice}" class="errors text-danger font-weight-bold">
+                Price is required.
+            </p>
+
+            <div class="row pt-4">
+                <div class="col">
+                    <div class="button-holder d-flex justify-content-center">
+                        <input type="submit" class="btn btn-lg" value="Промени цената" />
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <footer th:replace="fragments/commons :: footer">
+    </footer>
+</body>
+
+</html>

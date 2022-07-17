@@ -1,66 +1,23 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My choise pizza</title>
-
-    <script src="https://kit.fontawesome.com/244c211c57.js" crossorigin="anonymous"></script>
-
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css"
-        integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-
-    <link rel="stylesheet" href="/style.css">
-
+<head th:replace="fragments/commons :: head">
 </head>
 
 <body>
-    <nav class="navbar navbar-custom navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">
-            <span class="font-italic"><b>My ch<img src="/images/logo-for-whole-round-hot-pizza-vector-23261249.jpg"
-                        width="30" height="30" class="d-inline-block align-top" alt="">ise pizza</b></span>
-        </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+    <nav th:replace="fragments/commons :: nav"></nav>
 
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto col-12 justify-content-end ">
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Вход</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Регистрирай се</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Излез</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Профил</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Поръчай</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Цени</a>
-                </li>
-            </ul>
-        </div>
-    </nav>
-
-    <div class="container main-fone">
-        <h2 class="text-center text-dark pt-2">Цени, според размера и броя на продуктите на пицата:</h2>
-        <div class="table-responsive">
+    <div class="container">
+        <h2 class="text-center text-white p-4">Цени, според размера и броя на продуктите на пицата:</h2>
+        <div class="table-responsive main-fone">
             <table class="table table-striped">
                 <thead>
                     <tr>
                         <th scope="col">Брой парчета:</th>
                         <th scope="col">6</th>
                         <th scope="col">8</th>
-                        <th scope="col">8</th>
+                        <th scope="col">10</th>
                         <th scope="col">12</th>
                     </tr>
                     <tr>
@@ -83,46 +40,46 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <th scope="row">Кашкавал</th>
-                        <td>6.80лв.</td>
-                        <td>8.60лв.</td>
-                        <td>12.80лв.</td>
-                        <td>17.30лв.</td>
+                        <th scope="row">Основа (включва кашкавал)</th>
+                        <td th:text="|${small.getBasePrice()}лв.|">6.80лв.</td>
+                        <td th:text="|${medium.getBasePrice()}лв.|">8.60лв.</td>
+                        <td th:text="|${large.getBasePrice()}лв.|">12.80лв.</td>
+                        <td th:text="|${party.getBasePrice()}лв.|">17.30лв.</td>
+                    </tr>
+<!--                    <tr>-->
+<!--                        <th scope="row">+ 1-ви продукт</th>-->
+<!--                        <td>7.30лв.</td>-->
+<!--                        <td>9.30лв.</td>-->
+<!--                        <td>13.80лв.</td>-->
+<!--                        <td>18.90лв.</td>-->
+<!--                    </tr>-->
+<!--                    <tr>-->
+<!--                        <th scope="row">+ 2-ри продукт</th>-->
+<!--                        <td>7.80лв.</td>-->
+<!--                        <td>10.00лв.</td>-->
+<!--                        <td>14.80лв.</td>-->
+<!--                        <td>20.50лв.</td>-->
+<!--                    </tr>-->
+<!--                    <tr>-->
+<!--                        <th scope="row">+ 3-ти продукт</th>-->
+<!--                        <td>8.30лв.</td>-->
+<!--                        <td>10.70лв.</td>-->
+<!--                        <td>15.80лв.</td>-->
+<!--                        <td>22.10лв.</td>-->
+<!--                    </tr>-->
+                    <tr>
+                        <th scope="row">+ всеки следващ доп. продукт</th>
+                        <td th:text="|${small.getAdditionalProductPrice()}лв.|">0.50лв.</td>
+                        <td th:text="|${medium.getAdditionalProductPrice()}лв.|">0.70лв.</td>
+                        <td th:text="|${large.getAdditionalProductPrice()}лв.|">1.00лв.</td>
+                        <td th:text="|${party.getAdditionalProductPrice()}лв.|">1.60лв.</td>
                     </tr>
                     <tr>
-                        <th scope="row">+ 1-ви продукт</th>
-                        <td>7.30лв.</td>
-                        <td>9.30лв.</td>
-                        <td>13.80лв.</td>
-                        <td>18.90лв.</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">+ 2-ри продукт</th>
-                        <td>7.80лв.</td>
-                        <td>10.00лв.</td>
-                        <td>14.80лв.</td>
-                        <td>20.50лв.</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">+ 3-ти продукт</th>
-                        <td>8.30лв.</td>
-                        <td>10.70лв.</td>
-                        <td>15.80лв.</td>
-                        <td>22.10лв.</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">+ 4-ти продукт</th>
-                        <td>8.80лв.</td>
-                        <td>11.40лв.</td>
-                        <td>16.80лв.</td>
-                        <td>23.70лв.</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">+ доп. продукт</th>
-                        <td>0.50лв.</td>
-                        <td>0.70лв.</td>
-                        <td>1.00лв.</td>
-                        <td>1.60лв.</td>
+                        <th scope="row">Редактирай цена</th>
+                        <td><a class="btn" th:href="@{/priceList/{id}/edit(id=${small.id})}">Промени</a></td>
+                        <td><a class="btn" th:href="@{/priceList/{id}/edit(id=${medium.id})}">Промени</a></td>
+                        <td><a class="btn" th:href="@{/priceList/{id}/edit(id=${large.id})}">Промени</a></td>
+                        <td><a class="btn" th:href="@{/priceList/{id}/edit(id=${party.id})}">Промени</a></td>
                     </tr>
                 </tbody>
             </table>
@@ -130,12 +87,7 @@
     </div>
 
 
-    <footer class="footer rounded">
-        <div class="container-fluid text-center">
-            <div>
-                <span>&copy </span>Created by <a href="https://github.com/IvAngelova" target="_blank">IvAngelova</a>
-            </div>
-        </div>
+    <footer th:replace="fragments/commons :: footer">
     </footer>
 
 </body>
