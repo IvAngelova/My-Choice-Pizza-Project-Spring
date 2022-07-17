@@ -38,7 +38,7 @@ public class IngredientController {
                              RedirectAttributes redirectAttributes) throws IOException {
 
         if (bindingResult.hasErrors()) {
-            redirectAttributes.addFlashAttribute("orderAddBindingModel", ingredientAddBindingModel);
+            redirectAttributes.addFlashAttribute("ingredientAddBindingModel", ingredientAddBindingModel);
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.ingredientAddBindingModel", bindingResult);
 
             return "redirect:add";

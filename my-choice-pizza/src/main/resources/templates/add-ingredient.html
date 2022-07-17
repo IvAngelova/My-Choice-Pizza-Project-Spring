@@ -11,39 +11,39 @@
     <form th:method="post" th:action="@{/ingredients/add}" th:object="${ingredientAddBindingModel}" enctype="multipart/form-data"
           class="my-form mx-auto col-md-6 col-lg-4 d-flex flex-column justify-content-center">
         <div class="form-group">
-            <label for="name" class="text-dark font-weight-bold">Име</label>
+            <label for="name" class="text-dark font-weight-bold p-2">Име</label>
             <input id="name" name="name" th:field="*{name}"
-                   type="text" min="2" max="50" class="form-control" placeholder="Name" />
-            <p class="errors text-danger">
+                   type="text" minlength="2" maxlength="40" required class="form-control" placeholder="Name" />
+            <p th:if="${#fields.hasErrors('name')}" th:errors = "*{name}" class="text-danger font-weight-bold">
                 Name is required.
             </p>
         </div>
         <div class="form-group">
-            <label for="picture" class="text-dark font-weight-bold">Снимка</label><br>
+            <label for="picture" class="text-dark font-weight-bold p-2">Снимка</label><br>
 <!--            <input name="title" type="text"  min="2" max="50" class="form-control" placeholder="Заглавие на снимката" /><br>-->
-            <input id="picture" name="picture" th:field="*{picture}" type="file"/>
-            <p class="invalid-feedback errors text-danger">
+            <input id="picture" name="picture" th:field="*{picture}" type="file" required/>
+            <p th:if="${#fields.hasErrors('picture')}" th:errors = "*{picture}" class="text-danger font-weight-bold">
                 Picture is required.
             </p>
         </div>
         <div class="form-group">
-            <label for="category" class="text-dark font-weight-bold">Категория</label>
-            <select th:field="*{category}" id="category" class="form-control">
+            <label for="category" class="text-dark font-weight-bold p-2">Категория</label>
+            <select th:field="*{category}" id="category" class="form-control" required>
                 <option selected value="">- Избери категория -</option>
                 <option th:each="category : ${T(bg.softuni.mychoicepizza.model.entity.enums.CategoryNameEnum).values()}"
                         th:text="${category}" th:value="${category}" >
 <!--                        th:selected="${category} == *{category}"-->
                 </option>
             </select>
-            <p class="errors text-danger">
+            <p th:if="${#fields.hasErrors('category')}" th:errors = "*{category}" class="text-danger font-weight-bold">
                 Category is required.
             </p>
         </div>
 
-        <div class="row">
+        <div class="row pt-4">
             <div class="col">
                 <div class="button-holder d-flex justify-content-center">
-                    <input type="submit" class="btn w-50" value="Добави продукт" />
+                    <input type="submit" class="btn" value="Добави продукт" />
                 </div>
             </div>
         </div>
