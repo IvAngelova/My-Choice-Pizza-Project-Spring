@@ -3,7 +3,9 @@ package bg.softuni.mychoicepizza.service.impl;
 import bg.softuni.mychoicepizza.model.entity.UserEntity;
 import bg.softuni.mychoicepizza.model.entity.UserRoleEntity;
 import bg.softuni.mychoicepizza.model.entity.enums.RoleNameEnum;
+import bg.softuni.mychoicepizza.model.service.UserProfileServiceModel;
 import bg.softuni.mychoicepizza.model.service.UserServiceModel;
+import bg.softuni.mychoicepizza.model.view.UserViewModel;
 import bg.softuni.mychoicepizza.repository.UserRepository;
 import bg.softuni.mychoicepizza.repository.UserRoleRepository;
 import bg.softuni.mychoicepizza.service.UserService;
@@ -50,5 +52,29 @@ public class UserServiceImpl implements UserService {
         UserEntity savedUser = userRepository.save(newUser);
 
         return modelMapper.map(savedUser, UserServiceModel.class);
+    }
+
+    @Override
+    public UserViewModel findUserByUsername(String username) {
+        //todo
+        return userRepository.findByUsername(username)
+                .map(userEntity -> modelMapper.map(userEntity, UserViewModel.class))
+                .orElseThrow(() -> new IllegalArgumentException());
+    }
+
+    @Override
+    public void editProfile(UserProfileServiceModel userProfileServiceModel) {
+        //todo
+        UserEntity userEntity = userRepository.findById(userProfileServiceModel.getId())
+                .orElseThrow(() -> new IllegalArgumentException());
+
+        if (!userProfileServiceModel.getNewAddress().trim().equals("")) {
+            userEntity.getAddresses().add(userProfileServiceModel.getNewAddress());
+        }
+        userEntity.setFullName(userProfileServiceModel.getFullName())
+                .setPhoneNumber(userProfileServiceModel.getPhoneNumber());
+
+        userRepository.save(userEntity);
+
     }
 }

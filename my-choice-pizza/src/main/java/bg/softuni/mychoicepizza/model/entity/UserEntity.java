@@ -21,7 +21,7 @@ public class UserEntity extends BaseEntity {
     @Column(name = "phone_number", nullable = false)
     private String phoneNumber;
 
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
 //    @CollectionTable(name="addresses", joinColumns=@JoinColumn(name="user_id"))
     @Column(name = "address", nullable = false)
     private List<String> addresses = new ArrayList<>();

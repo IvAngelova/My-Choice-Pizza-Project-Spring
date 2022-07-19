@@ -1,20 +1,21 @@
 package bg.softuni.mychoicepizza.web;
 
+import bg.softuni.mychoicepizza.model.binding.UserProfileBindingModel;
 import bg.softuni.mychoicepizza.model.binding.UserRegisterBindingModel;
+import bg.softuni.mychoicepizza.model.service.UserProfileServiceModel;
 import bg.softuni.mychoicepizza.model.service.UserServiceModel;
+import bg.softuni.mychoicepizza.model.view.UserViewModel;
 import bg.softuni.mychoicepizza.service.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.security.Principal;
 
 @Controller
 @RequestMapping("/users")
@@ -83,5 +84,45 @@ public class UserController {
 
         return "redirect:login";
     }
+
+
+    @GetMapping("/profile")
+    public String profile(Principal principal, Model model) {
+        String username = principal.getName();
+        UserViewModel userViewModel = userService.findUserByUsername(username);
+        UserProfileBindingModel userModel = modelMapper.map(userViewModel, UserProfileBindingModel.class);
+        model.addAttribute("userProfileBindingModel", userModel);
+        return "user-profile";
+    }
+
+    @PatchMapping("/profile")
+    public String editUserProfile(@RequestParam("id") Long id,
+                                  @Valid UserProfileBindingModel userProfileBindingModel,
+                                  BindingResult bindingResult,
+                                  RedirectAttributes redirectAttributes,
+                                  Principal principal) {
+        if (bindingResult.hasErrors()) {
+            UserViewModel userViewModel = userService.findUserByUsername(principal.getName());
+            userProfileBindingModel.setAddresses(userViewModel.getAddresses());
+            redirectAttributes.addFlashAttribute("userProfileBindingModel", userProfileBindingModel)
+                    .addFlashAttribute("org.springframework.validation.BindingResult.userProfileBindingModel",
+                            bindingResult);
+
+            return "redirect:/users/profile/error";
+        }
+
+        UserProfileServiceModel userProfileServiceModel = modelMapper
+                .map(userProfileBindingModel, UserProfileServiceModel.class);
+        userProfileServiceModel.setId(id);
+        userService.editProfile(userProfileServiceModel);
+
+        return "redirect:profile";
+    }
+
+    @GetMapping("/profile/error")
+    public String editProfileError() {
+        return "user-profile";
+    }
+
 
 }

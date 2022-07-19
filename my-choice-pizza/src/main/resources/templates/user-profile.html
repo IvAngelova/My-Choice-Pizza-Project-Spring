@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+ <head th:replace="fragments/commons :: head">
+</head>
+
+<body>
+
+ <nav th:replace="fragments/commons :: nav"></nav>
+
+    <div class="container">
+        <h2 class="text-center text-white pt-5">Моят профил</h2>
+        <form th:object="${userProfileBindingModel}" th:action="@{/users/profile}" th:method="patch"
+            class="my-form mx-auto col-md-8 col-lg-5 d-flex flex-column justify-content-center">
+
+            <input type="hidden" name="id" th:value="*{id}"/>
+
+            <div class="row">
+                <div class="col">
+                    <label for="username" class="text-dark fw-bold p-2">Потребителско име:</label>
+                </div>
+                <div class="col">
+                    <input id="username" readonly th:field="*{username}" type="text" class="form-control-plaintext"
+                           placeholder="username" />
+                </div>
+            </div>
+
+            <label for="fullName" class="text-dark fw-bold p-2">Име и фамилия</label>
+            <input id="fullName" th:field="*{fullName}" type="text" required minlength="4" maxlength="30"
+                class="form-control" placeholder="fullName" />
+            <p th:if="${#fields.hasErrors('fullName')}" th:errors = "*{fullName}" class="errors text-danger fw-bold">
+                Full name is required.
+            </p>
+
+            <label for="phoneNumber" class="text-dark fw-bold p-2">Телефонен номер</label>
+            <input id="phoneNumber" th:field="*{phoneNumber}" type="text" required
+            class="form-control" placeholder="phoneNumber" />
+            <p th:if="${#fields.hasErrors('phoneNumber')}" th:errors = "*{phoneNumber}" class="errors text-danger fw-bold">
+                Phone number is required.
+            </p>
+
+            <h5 class="text-dark pt-2">Адреси за доставка</h5>
+
+            <label class="text-dark fw-bold p-1">Текущи адреси:</label>
+
+            <ul>
+                <li th:each="a : *{addresses}">
+                    <span th:text="${a}">ул. Пример Примерна 57В</span>
+                </li>
+            </ul>
+           
+
+            <label for="newAddress" class="text-dark fw-bold p-1">Добави нов адрес</label>
+            <input id="newAddress" th:field="*{newAddress}" type="text" maxlength="60"
+            class="form-control" placeholder="newAddress" />
+            <p th:if="${#fields.hasErrors('newAddress')}" th:errors = "*{newAddress}" class="errors text-danger fw-bold">
+                newAddress is optional.
+            </p>
+
+            <div class="row pt-4">
+                <div class="col">
+                    <div class="button-holder d-flex justify-content-center">
+                        <input type="submit" class="btn btn-lg" value="Запази промените" />
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+     <footer th:replace="fragments/commons :: footer">
+    </footer>
+</body>
+
+</html>

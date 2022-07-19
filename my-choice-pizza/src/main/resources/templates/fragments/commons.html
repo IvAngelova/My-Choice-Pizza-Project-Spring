@@ -16,7 +16,7 @@
 <body>
 <nav th:fragment="nav" class="navbar navbar-custom navbar-expand-lg navbar-light bg-light">
     <a class="navbar-brand" href="/">
-        <span class="font-italic"><b>My ch<img src="/images/logo.jpg" width="30" height="30"
+        <span class="fst-italic"><b>My ch<img src="/images/logo.jpg" width="30" height="30"
                                                class="d-inline-block align-top" alt="">ice pizza</b></span>
     </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
@@ -37,7 +37,7 @@
 
             <th:block sec:authorize="isAuthenticated()">
             <li class="nav-item">
-                <a class="nav-link" href="#">Профил</a>
+                <a class="nav-link" th:href="@{/users/profile}">Профил</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" th:href="@{/pizza/builder}">Поръчай</a>
