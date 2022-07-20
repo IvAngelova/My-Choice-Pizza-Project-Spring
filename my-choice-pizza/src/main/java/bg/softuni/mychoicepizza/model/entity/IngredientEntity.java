@@ -5,7 +5,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "ingredients")
 public class IngredientEntity extends BaseEntity{
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String name;
 
     @ManyToOne(optional = false)
