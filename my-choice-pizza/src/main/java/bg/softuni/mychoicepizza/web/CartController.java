@@ -1,5 +1,6 @@
 package bg.softuni.mychoicepizza.web;
 
+import bg.softuni.mychoicepizza.model.view.PizzaViewModel;
 import bg.softuni.mychoicepizza.service.CartService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -7,7 +8,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.transaction.Transactional;
+import java.math.BigDecimal;
 import java.security.Principal;
+import java.util.List;
 
 @Controller
 @RequestMapping("/cart")
@@ -22,7 +25,13 @@ public class CartController {
     @GetMapping("")
     @Transactional
     public String cart(Model model, Principal principal) {
-        model.addAttribute("pizzas", cartService.findAllPizzasByUser(principal.getName()));
+        List<PizzaViewModel> allPizzasByUser = cartService.findAllPizzasByUser(principal.getName());
+        model.addAttribute("pizzas", allPizzasByUser);
+        BigDecimal estimatedTotal = BigDecimal.ZERO;
+        for (PizzaViewModel pizzaViewModel : allPizzasByUser) {
+            estimatedTotal = estimatedTotal.add(pizzaViewModel.getSubtotal());
+        }
+        model.addAttribute("estimatedTotal", estimatedTotal);
         return "shopping-cart";
     }
 }

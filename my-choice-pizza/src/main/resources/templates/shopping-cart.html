@@ -11,14 +11,14 @@
 <section class="h-100 gradient-custom">
     <div class="container py-5">
         <div class="row d-flex justify-content-center my-4">
-            <div th:each="p : ${pizzas}" class="col-md-7">
+            <div class="col-md-7">
                 <div class="card mb-4 main-fone">
                     <div class="card-header py-3">
                         <h5 class="mb-0">Количка</h5>
                     </div>
-                    <div class="card-body">
+                    <div th:each="p, status : ${pizzas}" class="card-body">
                         <!-- Single item -->
-                        <div class="row">
+                        <div class="row" th:id="'row' + ${status.count}">
                             <div class="col-lg-3 col-md-12 mb-4 mb-lg-0">
                                 <!-- Image -->
                                 <div class="bg-image hover-overlay hover-zoom ripple rounded"
@@ -38,10 +38,10 @@
                                         <li th:text="${i}"></li>
                                     </ul>
                                 </div>
-                                <button type="button" class="btn btn-sm me-1 mb-2"
-                                        data-mdb-toggle="tooltip" title="Remove item">
-                                    <i class="fas fa-trash"></i>
-                                </button>
+                                <div>
+                                    <a class="linkRemove btn" th:rowNumber="${status.count}"
+                                       th:href="@{'/cart/remove/' + ${p.id}}"><i class="fas fa-trash"></i></a>
+                                </div>
                                 <!-- Data -->
                             </div>
 
@@ -49,18 +49,20 @@
                                 <!-- Quantity -->
                                 <h6>Количество</h6>
                                 <div class="d-flex mb-4" style="max-width: 300px">
-                                    <button class="btn px-3 me-2"
-                                            onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
+                                    <button class="btn px-3 me-2 linkMinus" th:iid="${p.id}">
+                                        <!--                                            onclick="this.parentNode.querySelector('input[type=number]').stepDown()"-->
+
                                         <i class="fas fa-minus"></i>
                                     </button>
 
                                     <div class="form-outline">
-                                        <input id="form1" min="1" name="quantity" th:value="${p.quantity}" type="number"
+                                        <input th:id="'quantity' + ${p.id}" min="1" name="quantity"
+                                               th:value="${p.quantity}" type="text"
                                                class="form-control"/>
                                     </div>
 
-                                    <button class="btn px-3 ms-2"
-                                            onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
+                                    <button class="btn px-3 ms-2 linkPlus" th:iid="${p.id}">
+                                        <!--                                            onclick="this.parentNode.querySelector('input[type=number]').stepUp()"-->
                                         <i class="fas fa-plus"></i>
                                     </button>
                                 </div>
@@ -68,25 +70,27 @@
 
                                 <!-- Price -->
                                 <p class="text-start text-md-center">
-                                    <strong th:text="${p.price}">$17.99</strong>
+                                    <strong th:id="'subtotal' + ${p.id}" class="subtotal"
+                                            th:text="${p.getSubtotal()}"></strong> лв.
                                 </p>
                                 <!-- Price -->
                             </div>
                         </div>
+                        <hr class="my-4" th:id="'blankLine' + ${status.count}"/>
                         <!-- Single item -->
 
-                        <hr class="my-4"/>
 
-                        <!-- <div class="pt-5">
-                            <h6 class="mb-0"><a href="#!" class="text-body"><i
-                                  class="fas fa-long-arrow-alt-left me-2"></i>Back to shop</a></h6>
-                          </div>
-                        </div> -->
+                    </div>
+                    <div th:if="${#lists.isEmpty(pizzas)}">
+                        <h3>Все още не си избрал нищо.</h3>
+                        <h3>Количката е празна.</h3>
                     </div>
                 </div>
+
             </div>
 
-            <div class="col-md-5 col-sm-12">
+
+            <div th:unless="${#lists.isEmpty(pizzas)}" class="col-md-5 col-sm-12">
                 <div class="card mb-4 main-fone">
                     <div class="card-header py-3">
                         <h5 class="mb-0">Общо</h5>
@@ -95,31 +99,38 @@
 
 
                         <div class="d-flex justify-content-between mb-4">
-                            <h5>Products</h5>
-                            <h5>€ 132.00</h5>
+                            <h5>Цена пици</h5>
+                            <span class="h5" id="total">[[${estimatedTotal}]]<span class="h5">лв.</span></span>
                         </div>
 
-                        <h5 class="mb-3">Shipping</h5>
+                        <h5 class="mb-3">Доставка</h5>
 
                         <div class="mb-4 pb-2">
-                            <select class="select">
-                                <option value="1">Standard-Delivery- €5.00</option>
-                                <option value="2">Two</option>
-                                <option value="3">Three</option>
-                                <option value="4">Four</option>
+                            <!--                            <select class="select">-->
+                            <!--                                <option value="1">Standard-Delivery- €5.00</option>-->
+                            <!--                                <option value="2">Two</option>-->
+                            <!--                            </select>-->
+                            <select id="delivery" class="form-control" required>
+                                <option selected value="">- Избери опция -</option>
+                                <option th:each="d : ${T(bg.softuni.mychoicepizza.model.entity.enums.DeliveryEnum).values()}"
+                                        th:text="${d}" th:value="${d}">
+                                </option>
                             </select>
+                            <!--                            <p th:if="${#fields.hasErrors('category')}" th:errors = "*{category}" class="text-danger fw-bold">-->
+                            <!--                                Category is required.-->
+                            <!--                            </p>-->
                         </div>
 
                         <hr class="my-4">
 
                         <div class="d-flex justify-content-between mb-5">
-                            <h5>Total price</h5>
+                            <h5>Крайна цена</h5>
                             <h5>€ 137.00</h5>
                         </div>
 
 
                         <button type="button" class="btn btn-lg btn-block">
-                            Go to checkout
+                            Поръчай
                         </button>
                     </div>
                 </div>
@@ -130,8 +141,17 @@
 
 <footer th:replace="fragments/commons :: footer">
 </footer>
+<script type="text/javascript">
+    contextPath = "[[@{/}]]";
+    var csrfHeaderName = "[[${_csrf.headerName}]]";
+    var csrfValue = "[[${_csrf.token}]]";
+    var itemId = "[[@{i.id}]]";
 
-<script src="https://kit.fontawesome.com/244c211c57.js" crossorigin="anonymous"></script>
+
+</script>
+<script th:src="@{/js/jquery-number.js}"></script>
+<script th:src="@{/js/shopping-cart.js}"></script>
+
 </body>
 
 </html>

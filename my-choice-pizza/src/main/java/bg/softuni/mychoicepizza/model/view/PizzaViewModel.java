@@ -8,6 +8,8 @@ import java.util.List;
 
 public class PizzaViewModel {
 
+    private Long id;
+
     private SizeEnum size;
 
     private List<String> ingredients;
@@ -60,6 +62,19 @@ public class PizzaViewModel {
 
     public PizzaViewModel setQuantity(Integer quantity) {
         this.quantity = quantity;
+        return this;
+    }
+
+    public BigDecimal getSubtotal(){
+        return this.price.multiply(new BigDecimal(this.quantity));
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public PizzaViewModel setId(Long id) {
+        this.id = id;
         return this;
     }
 }

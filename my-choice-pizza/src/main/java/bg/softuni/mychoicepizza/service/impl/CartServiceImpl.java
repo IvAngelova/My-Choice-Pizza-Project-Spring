@@ -14,12 +14,14 @@ import bg.softuni.mychoicepizza.service.CartService;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@Transactional
 public class CartServiceImpl implements CartService {
     private final PizzaRepository pizzaRepository;
     private final IngredientRepository ingredientRepository;
@@ -36,7 +38,7 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public void saveNewCartItem(PizzaServiceModel pizzaServiceModel, String username) {
+    public void addNewCartItem(PizzaServiceModel pizzaServiceModel, String username) {
 
         //todo
         List<IngredientEntity> ingredients = new ArrayList<>();
@@ -79,5 +81,20 @@ public class CartServiceImpl implements CartService {
                     return pizzaViewModel;
                 })
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public BigDecimal updateQuantity(Integer quantity, Long itemId, Long userId) {
+
+        pizzaRepository.updateQuantity(quantity, itemId, userId);
+
+        PizzaEntity pizzaEntity = pizzaRepository.findById(itemId).get();
+
+        return pizzaEntity.getPrice().multiply(BigDecimal.valueOf(quantity));
+    }
+
+    @Override
+    public void removeItem(Long itemId, Long userId) {
+        pizzaRepository.deleteByUserAndItem(itemId, userId);
     }
 }
