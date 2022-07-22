@@ -1,5 +1,6 @@
 package bg.softuni.mychoicepizza.config;
 
+import bg.softuni.mychoicepizza.model.entity.enums.RoleNameEnum;
 import bg.softuni.mychoicepizza.repository.UserRepository;
 import bg.softuni.mychoicepizza.security.MyChoicePizzaUserDetailsImpl;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
@@ -37,6 +38,8 @@ public class ApplicationSecurityConfiguration {
                         requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll().
                 // everyone can login and register
                         antMatchers("/", "/users/login", "/users/register", "/about", "/priceList").permitAll().
+                // we permit the page below only for admin users
+                        antMatchers("/admin/ingredients/update").hasRole(RoleNameEnum.ADMIN.name()).
                 // all other pages are available for logger in users
                         anyRequest().
                 authenticated().

@@ -45,7 +45,6 @@
                 <h6 th:text="${c.name.name().replace('_', ' ').toUpperCase()}">Колбаси</h6>
                 <div class="container container-ingredients">
                     <div class="row">
-
                         <div th:each="i : ${c.ingredients}" th:object="${i}" class="card card-custom m-1">
                             <img th:src="*{picture.getUrl()}" class="card-img-top" th:alt="*{picture.getTitle()}"
                                  width="150px"
@@ -58,27 +57,8 @@
                                     <label class="form-check-label" th:for="${i}" th:text="*{name}"></label>
                                 </div>
                             </div>
-<!--                            todo: delete ingredient: error because of nested <form> tags-->
-                                                    <div class="card-body">
-                                                        <div class="row">
-                                                            <!--                                <th:block th:if="*{canDelete}">-->
-<!--                                                            <form th:action="@{/ingredients/delete/{id}(id=*{id})}" th:method="delete">-->
-<!--                                                                <input type="submit" class="btn" value="Изтрий"/>-->
-<!--                                                            </form>-->
-                                                            <!--                                </th:block>-->
-                                                        </div>
-                                                    </div>
                         </div>
                     </div>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col">
-                    <div class="button-holder d-flex justify-content-center pb-3">
-                        <a class="btn" th:href="@{/ingredients/add}">Добави продукт</a>
-                    </div>
-
                 </div>
             </div>
 

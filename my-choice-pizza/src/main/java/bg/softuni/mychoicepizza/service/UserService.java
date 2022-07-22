@@ -12,4 +12,6 @@ public interface UserService {
     UserViewModel findUserByUsername(String username);
 
     void editProfile(UserProfileServiceModel userProfileServiceModel);
+
+    void initializeAdmin();
 }

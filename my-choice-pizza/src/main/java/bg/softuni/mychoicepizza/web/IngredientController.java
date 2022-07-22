@@ -46,7 +46,7 @@ public class IngredientController {
 
         ingredientService.addIngredient(modelMapper.map(ingredientAddBindingModel, IngredientServiceModel.class));
 
-        return "redirect:/pizza/builder";
+        return "redirect:/admin/ingredients/update";
     }
 
     @ModelAttribute
@@ -61,7 +61,7 @@ public class IngredientController {
 
         ingredientService.deleteIngredientById(id);
 
-        return "redirect:/pizza/builder";
+        return "redirect:/admin/ingredients/update";
     }
 
 }

@@ -77,4 +77,36 @@ public class UserServiceImpl implements UserService {
         userRepository.save(userEntity);
 
     }
+
+    @Override
+    public void initializeAdmin() {
+        initializeRoles();
+        if (userRepository.count() == 0) {
+            UserRoleEntity adminRole = userRoleRepository.findByRole(RoleNameEnum.ADMIN);
+            UserRoleEntity userRole = userRoleRepository.findByRole(RoleNameEnum.USER);
+
+            UserEntity admin = new UserEntity();
+            admin
+                    .setUsername("admin")
+                    .setFullName("Admin Adminov")
+                    .setPassword(passwordEncoder.encode("11111"))
+                    .setPhoneNumber("0898888888")
+                    .setAddresses(List.of("ул. Родна стряха 56В"))
+                    .setRoles(Set.of(adminRole, userRole));
+
+            userRepository.save(admin);
+        }
+    }
+
+    private void initializeRoles() {
+        if (userRoleRepository.count() == 0) {
+            UserRoleEntity adminRole = new UserRoleEntity();
+            adminRole.setRole(RoleNameEnum.ADMIN);
+
+            UserRoleEntity userRole = new UserRoleEntity();
+            userRole.setRole(RoleNameEnum.USER);
+
+            userRoleRepository.saveAll(List.of(adminRole, userRole));
+        }
+    }
 }
