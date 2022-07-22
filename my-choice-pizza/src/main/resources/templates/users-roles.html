@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+ <head th:replace="fragments/commons :: head">
+</head>
+
+<body>
+    <nav th:replace="fragments/commons :: nav"></nav>
+
+    <div class="container">
+        <h2 class="text-center text-white p-4">Всички потребители:</h2>
+        <div class="table-responsive main-fone">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">№</th>
+                        <th scope="col">Потребителско име</th>
+                        <th scope="col">Име и фамилия</th>
+                        <th scope="col">Телефонен номер</th>
+                        <th scope="col">Роли</th>
+                        <th scope="col">Администраторски права</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="user, status : ${allUsers}">
+                        <th scope="row" th:text="${status.count}">1</th>
+                        <td th:text="${user.username}">vankata</td>
+                        <td th:text="${user.fullName}">Ivan Ivanov</td>
+                        <td th:text="${user.phoneNumber}">0898456732</td>
+                        <td>
+                            <ul>
+                                <li th:each="r : ${user.roles}">
+                                    <div th:text="${r}">ADMIN</div>
+                                </li>
+                            </ul>
+                        </td>
+                        <td >
+                            <form th:action="@{/users/{id}/changeRoles(id=${user.id})}" th:method="patch">
+                                <input type="submit" class="btn" value="Промени"/>
+                            </form>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+    <footer th:replace="fragments/commons :: footer">
+    </footer>
+
+</body>
+
+</html>

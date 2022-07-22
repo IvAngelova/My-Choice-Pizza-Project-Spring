@@ -13,8 +13,10 @@ import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -96,6 +98,43 @@ public class UserServiceImpl implements UserService {
 
             userRepository.save(admin);
         }
+    }
+
+    @Override
+    public List<UserViewModel> getAllUsers() {
+
+        return userRepository.findAll()
+                .stream()
+                .map(userEntity -> {
+                    UserViewModel userViewModel = modelMapper.map(userEntity, UserViewModel.class);
+                    Set<RoleNameEnum> roles = new HashSet<>();
+                    for (UserRoleEntity role : userEntity.getRoles()) {
+                        roles.add(role.getRole());
+                    }
+                    userViewModel.setRoles(roles);
+                    return userViewModel;
+                })
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public void changeRole(Long id) {
+        //todo
+        UserEntity userEntity = userRepository
+                .findById(id)
+                .orElseThrow(() -> new IllegalArgumentException());
+
+        UserRoleEntity adminRole = userRoleRepository.findByRole(RoleNameEnum.ADMIN);
+        UserRoleEntity userRole = userRoleRepository.findByRole(RoleNameEnum.USER);
+
+        int size = userEntity.getRoles().size();
+        if (size == 2) {
+            userEntity.setRoles(Set.of(userRole));
+        } else {
+            userEntity.setRoles(Set.of(userRole, adminRole));
+        }
+
+        userRepository.save(userEntity);
     }
 
     private void initializeRoles() {

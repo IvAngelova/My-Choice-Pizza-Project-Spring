@@ -40,6 +40,7 @@ public class ApplicationSecurityConfiguration {
                         antMatchers("/", "/users/login", "/users/register", "/about", "/priceList").permitAll().
                 // we permit the page below only for admin users
                         antMatchers("/admin/ingredients/update").hasRole(RoleNameEnum.ADMIN.name()).
+                        antMatchers("/admin/allUsers").hasRole(RoleNameEnum.ADMIN.name()).
                 // all other pages are available for logger in users
                         anyRequest().
                 authenticated().

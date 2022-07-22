@@ -125,4 +125,11 @@ public class UserController {
     }
 
 
+    @PatchMapping("/{id}/changeRoles")
+    public String changeRole(@PathVariable Long id){
+        userService.changeRole(id);
+        return "redirect:/admin/allUsers";
+    }
+
+
 }

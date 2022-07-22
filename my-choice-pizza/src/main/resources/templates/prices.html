@@ -74,7 +74,7 @@
                         <td th:text="|${large.getAdditionalProductPrice()}лв.|">1.00лв.</td>
                         <td th:text="|${party.getAdditionalProductPrice()}лв.|">1.60лв.</td>
                     </tr>
-                    <tr>
+                    <tr sec:authorize="hasRole('ADMIN')">
                         <th scope="row">Редактирай цена</th>
                         <td><a class="btn" th:href="@{/priceList/{id}/edit(id=${small.id})}">Промени</a></td>
                         <td><a class="btn" th:href="@{/priceList/{id}/edit(id=${medium.id})}">Промени</a></td>
