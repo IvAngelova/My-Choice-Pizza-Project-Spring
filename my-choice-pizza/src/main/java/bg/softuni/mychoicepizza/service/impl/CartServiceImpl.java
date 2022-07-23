@@ -78,6 +78,7 @@ public class CartServiceImpl implements CartService {
                             .map(IngredientEntity::getName)
                             .toList();
                     pizzaViewModel.setIngredients(ingredients);
+                    pizzaViewModel.setUsername(username);
                     return pizzaViewModel;
                 })
                 .collect(Collectors.toList());

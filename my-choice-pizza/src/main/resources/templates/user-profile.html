@@ -40,22 +40,22 @@
                 Phone number is required.
             </p>
 
-            <h5 class="text-dark pt-2">Адреси за доставка</h5>
+<!--            <h5 class="text-dark pt-2">Адреси за доставка</h5>-->
 
-            <label class="text-dark fw-bold p-1">Текущи адреси:</label>
+<!--            <label class="text-dark fw-bold p-1">Текущи адреси:</label>-->
 
-            <ul>
-                <li th:each="a : *{addresses}">
-                    <span th:text="${a}">ул. Пример Примерна 57В</span>
-                </li>
-            </ul>
+<!--            <ul>-->
+<!--                <li th:each="a : *{addresses}">-->
+<!--                    <span th:text="${a}">ул. Пример Примерна 57В</span>-->
+<!--                </li>-->
+<!--            </ul>-->
            
 
-            <label for="newAddress" class="text-dark fw-bold p-1">Добави нов адрес</label>
-            <input id="newAddress" th:field="*{newAddress}" type="text" maxlength="60"
-            class="form-control" placeholder="newAddress" />
-            <p th:if="${#fields.hasErrors('newAddress')}" th:errors = "*{newAddress}" class="errors text-danger fw-bold">
-                newAddress is optional.
+            <label for="address" class="text-dark fw-bold p-2">Aдрес</label>
+            <input id="address" th:field="*{address}" type="text" required minlength="4" maxlength="60"
+            class="form-control" placeholder="address" />
+            <p th:if="${#fields.hasErrors('address')}" th:errors = "*{address}" class="errors text-danger fw-bold">
+                Address is required.
             </p>
 
             <div class="row pt-4">

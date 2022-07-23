@@ -31,6 +31,11 @@ public class PizzaEntity extends BaseEntity {
     @ManyToOne(optional = false)
     private UserEntity user;
 
+    @Transient
+    public BigDecimal getSubtotal() {
+        return this.price.multiply(new BigDecimal(this.quantity));
+    }
+
     public int getQuantity() {
         return quantity;
     }

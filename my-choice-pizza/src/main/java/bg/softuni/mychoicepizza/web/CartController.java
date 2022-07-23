@@ -1,10 +1,12 @@
 package bg.softuni.mychoicepizza.web;
 
+import bg.softuni.mychoicepizza.model.binding.OrderAddBindingModel;
 import bg.softuni.mychoicepizza.model.view.PizzaViewModel;
 import bg.softuni.mychoicepizza.service.CartService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.transaction.Transactional;
@@ -33,5 +35,10 @@ public class CartController {
         }
         model.addAttribute("estimatedTotal", estimatedTotal);
         return "shopping-cart";
+    }
+
+    @ModelAttribute
+    public OrderAddBindingModel orderAddBindingModel(){
+        return new OrderAddBindingModel();
     }
 }

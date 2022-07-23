@@ -8,8 +8,7 @@ public class UserProfileServiceModel {
     private String phoneNumber;
     private String fullName;
 
-    private String newAddress;
-    //private List<String> addresses;
+    private String address;
 
     public Long getId() {
         return id;
@@ -38,12 +37,12 @@ public class UserProfileServiceModel {
         return this;
     }
 
-    public String getNewAddress() {
-        return newAddress;
+    public String getAddress() {
+        return address;
     }
 
-    public UserProfileServiceModel setNewAddress(String newAddress) {
-        this.newAddress = newAddress;
+    public UserProfileServiceModel setAddress(String address) {
+        this.address = address;
         return this;
     }
 }

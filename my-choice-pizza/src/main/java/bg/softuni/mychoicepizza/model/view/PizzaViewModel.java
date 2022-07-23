@@ -20,6 +20,8 @@ public class PizzaViewModel {
 
     private Integer quantity;
 
+    private String username;
+
     public SizeEnum getSize() {
         return size;
     }
@@ -75,6 +77,15 @@ public class PizzaViewModel {
 
     public PizzaViewModel setId(Long id) {
         this.id = id;
+        return this;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public PizzaViewModel setUsername(String username) {
+        this.username = username;
         return this;
     }
 }

@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.util.Collection;
 import java.util.List;
 
 @Repository
@@ -20,5 +21,7 @@ public interface PizzaRepository extends JpaRepository<PizzaEntity, Long> {
     @Query("DELETE from PizzaEntity p where p.user.id=?2 and p.id = ?1")
     @Modifying
     void deleteByUserAndItem(Long itemId, Long userId);
+
+    List<PizzaEntity> findByIdIn(Collection<Long> ids);
 
 }

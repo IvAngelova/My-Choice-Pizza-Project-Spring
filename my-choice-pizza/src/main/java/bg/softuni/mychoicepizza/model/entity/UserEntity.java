@@ -21,10 +21,8 @@ public class UserEntity extends BaseEntity {
     @Column(name = "phone_number", nullable = false)
     private String phoneNumber;
 
-    @ElementCollection(fetch = FetchType.EAGER)
-//    @CollectionTable(name="addresses", joinColumns=@JoinColumn(name="user_id"))
-    @Column(name = "address", nullable = false)
-    private List<String> addresses = new ArrayList<>();
+    @Column(nullable = false)
+    private String address;
 
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<UserRoleEntity> roles;
@@ -69,14 +67,6 @@ public class UserEntity extends BaseEntity {
         return this;
     }
 
-    public List<String> getAddresses() {
-        return addresses;
-    }
-
-    public UserEntity setAddresses(List<String> addresses) {
-        this.addresses = addresses;
-        return this;
-    }
 
     public Set<UserRoleEntity> getRoles() {
         return roles;
@@ -84,6 +74,15 @@ public class UserEntity extends BaseEntity {
 
     public UserEntity setRoles(Set<UserRoleEntity> roles) {
         this.roles = roles;
+        return this;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public UserEntity setAddress(String address) {
+        this.address = address;
         return this;
     }
 }

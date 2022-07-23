@@ -2,7 +2,6 @@ package bg.softuni.mychoicepizza.model.view;
 
 import bg.softuni.mychoicepizza.model.entity.enums.RoleNameEnum;
 
-import java.util.List;
 import java.util.Set;
 
 public class UserViewModel {
@@ -10,7 +9,7 @@ public class UserViewModel {
     private String fullName;
     private String phoneNumber;
     private String username;
-    private List<String> addresses;
+    private String address;
     private Set<RoleNameEnum> roles;
 
     public Long getId() {
@@ -49,21 +48,21 @@ public class UserViewModel {
         return this;
     }
 
-    public List<String> getAddresses() {
-        return addresses;
-    }
-
-    public UserViewModel setAddresses(List<String> addresses) {
-        this.addresses = addresses;
-        return this;
-    }
-
     public Set<RoleNameEnum> getRoles() {
         return roles;
     }
 
     public UserViewModel setRoles(Set<RoleNameEnum> roles) {
         this.roles = roles;
+        return this;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public UserViewModel setAddress(String address) {
+        this.address = address;
         return this;
     }
 }

@@ -48,7 +48,7 @@ public class UserServiceImpl implements UserService {
         newUser
                 .setPassword(passwordEncoder.encode(userServiceModel.getPassword()))
                 .setRoles(Set.of(userRole))
-                .setAddresses(List.of(userServiceModel.getAddress()));
+                .setAddress(userServiceModel.getAddress());
 
 
         UserEntity savedUser = userRepository.save(newUser);
@@ -70,11 +70,9 @@ public class UserServiceImpl implements UserService {
         UserEntity userEntity = userRepository.findById(userProfileServiceModel.getId())
                 .orElseThrow(() -> new IllegalArgumentException());
 
-        if (!userProfileServiceModel.getNewAddress().trim().equals("")) {
-            userEntity.getAddresses().add(userProfileServiceModel.getNewAddress());
-        }
         userEntity.setFullName(userProfileServiceModel.getFullName())
-                .setPhoneNumber(userProfileServiceModel.getPhoneNumber());
+                .setPhoneNumber(userProfileServiceModel.getPhoneNumber())
+                .setAddress(userProfileServiceModel.getAddress());
 
         userRepository.save(userEntity);
 
@@ -93,7 +91,7 @@ public class UserServiceImpl implements UserService {
                     .setFullName("Admin Adminov")
                     .setPassword(passwordEncoder.encode("11111"))
                     .setPhoneNumber("0898888888")
-                    .setAddresses(List.of("ул. Родна стряха 56В"))
+                    .setAddress("ул. Родна стряха 56В")
                     .setRoles(Set.of(adminRole, userRole));
 
             userRepository.save(admin);

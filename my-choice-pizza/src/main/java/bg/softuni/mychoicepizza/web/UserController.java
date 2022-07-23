@@ -102,8 +102,6 @@ public class UserController {
                                   RedirectAttributes redirectAttributes,
                                   Principal principal) {
         if (bindingResult.hasErrors()) {
-            UserViewModel userViewModel = userService.findUserByUsername(principal.getName());
-            userProfileBindingModel.setAddresses(userViewModel.getAddresses());
             redirectAttributes.addFlashAttribute("userProfileBindingModel", userProfileBindingModel)
                     .addFlashAttribute("org.springframework.validation.BindingResult.userProfileBindingModel",
                             bindingResult);

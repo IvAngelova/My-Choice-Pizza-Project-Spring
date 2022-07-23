@@ -16,10 +16,10 @@ public class UserProfileBindingModel {
     private String fullName;
     @NotBlank(message = "Полето е задължително!")
     private String phoneNumber;
-    @Size(max = 60, message = "Адресът трябва да е с дължина до 60 символа!")
-    private String newAddress;
+    @NotBlank(message = "Полето е задължително!")
+    @Size(min = 4, max = 60, message = "Адресът трябва да е с дължина до 60 символа!")
+    private String address;
 
-    private List<String> addresses;
 
     public UserProfileBindingModel() {
     }
@@ -51,16 +51,6 @@ public class UserProfileBindingModel {
         return this;
     }
 
-
-    public List<String> getAddresses() {
-        return addresses;
-    }
-
-    public UserProfileBindingModel setAddresses(List<String> addresses) {
-        this.addresses = addresses;
-        return this;
-    }
-
     public Long getId() {
         return id;
     }
@@ -70,12 +60,12 @@ public class UserProfileBindingModel {
         return this;
     }
 
-    public String getNewAddress() {
-        return newAddress;
+    public String getAddress() {
+        return address;
     }
 
-    public UserProfileBindingModel setNewAddress(String newAddress) {
-        this.newAddress = newAddress;
+    public UserProfileBindingModel setAddress(String address) {
+        this.address = address;
         return this;
     }
 }
