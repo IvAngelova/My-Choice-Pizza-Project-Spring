@@ -1,15 +1,9 @@
 package bg.softuni.mychoicepizza.service.impl;
 
-import bg.softuni.mychoicepizza.model.entity.IngredientEntity;
-import bg.softuni.mychoicepizza.model.entity.PizzaEntity;
-import bg.softuni.mychoicepizza.model.entity.PriceEntity;
-import bg.softuni.mychoicepizza.model.entity.UserEntity;
+import bg.softuni.mychoicepizza.model.entity.*;
 import bg.softuni.mychoicepizza.model.service.PizzaServiceModel;
 import bg.softuni.mychoicepizza.model.view.PizzaViewModel;
-import bg.softuni.mychoicepizza.repository.IngredientRepository;
-import bg.softuni.mychoicepizza.repository.PizzaRepository;
-import bg.softuni.mychoicepizza.repository.PriceRepository;
-import bg.softuni.mychoicepizza.repository.UserRepository;
+import bg.softuni.mychoicepizza.repository.*;
 import bg.softuni.mychoicepizza.service.CartService;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -23,18 +17,18 @@ import java.util.stream.Collectors;
 @Service
 @Transactional
 public class CartServiceImpl implements CartService {
-    private final PizzaRepository pizzaRepository;
     private final IngredientRepository ingredientRepository;
     private final UserRepository userRepository;
     private final PriceRepository priceRepository;
     private final ModelMapper modelMapper;
+    private final CartItemRepository cartItemRepository;
 
-    public CartServiceImpl(PizzaRepository pizzaRepository, IngredientRepository ingredientRepository, UserRepository userRepository, PriceRepository priceRepository, ModelMapper modelMapper) {
-        this.pizzaRepository = pizzaRepository;
+    public CartServiceImpl(IngredientRepository ingredientRepository, UserRepository userRepository, PriceRepository priceRepository, ModelMapper modelMapper, CartItemRepository cartItemRepository) {
         this.ingredientRepository = ingredientRepository;
         this.userRepository = userRepository;
         this.priceRepository = priceRepository;
         this.modelMapper = modelMapper;
+        this.cartItemRepository = cartItemRepository;
     }
 
     @Override
@@ -56,24 +50,24 @@ public class CartServiceImpl implements CartService {
         BigDecimal additionalProductPrice = priceEntity.getAdditionalProductPrice();
         BigDecimal price = basePrice.add(additionalProductPrice.multiply(new BigDecimal(ingredients.size())));
 
-        PizzaEntity pizzaEntity = new PizzaEntity();
-        pizzaEntity.setQuantity(1)
+        CartItemEntity cartItemEntity = new CartItemEntity();
+        cartItemEntity.setQuantity(1)
                 .setBase(pizzaServiceModel.getBase())
                 .setSize(pizzaServiceModel.getSize())
                 .setIngredients(ingredients)
                 .setUser(userEntity)
                 .setPrice(price);
 
-        pizzaRepository.save(pizzaEntity);
+        cartItemRepository.save(cartItemEntity);
     }
 
     @Override
     public List<PizzaViewModel> findAllPizzasByUser(String username) {
-        return pizzaRepository.findByUser_Username(username)
+        return cartItemRepository.findByUser_Username(username)
                 .stream()
-                .map(pizzaEntity -> {
-                    PizzaViewModel pizzaViewModel = modelMapper.map(pizzaEntity, PizzaViewModel.class);
-                    List<String> ingredients = pizzaEntity.getIngredients()
+                .map(cartItemEntity -> {
+                    PizzaViewModel pizzaViewModel = modelMapper.map(cartItemEntity, PizzaViewModel.class);
+                    List<String> ingredients = cartItemEntity.getIngredients()
                             .stream()
                             .map(IngredientEntity::getName)
                             .toList();
@@ -87,15 +81,15 @@ public class CartServiceImpl implements CartService {
     @Override
     public BigDecimal updateQuantity(Integer quantity, Long itemId, Long userId) {
 
-        pizzaRepository.updateQuantity(quantity, itemId, userId);
+        cartItemRepository.updateQuantity(quantity, itemId, userId);
 
-        PizzaEntity pizzaEntity = pizzaRepository.findById(itemId).get();
+        CartItemEntity cartItemEntity = cartItemRepository.findById(itemId).get();
 
-        return pizzaEntity.getPrice().multiply(BigDecimal.valueOf(quantity));
+        return cartItemEntity.getPrice().multiply(BigDecimal.valueOf(quantity));
     }
 
     @Override
     public void removeItem(Long itemId, Long userId) {
-        pizzaRepository.deleteByUserAndItem(itemId, userId);
+        cartItemRepository.deleteByUserAndItem(itemId, userId);
     }
 }

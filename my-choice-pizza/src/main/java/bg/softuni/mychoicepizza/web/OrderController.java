@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.security.Principal;
 import java.util.List;
 
 @Controller
@@ -26,7 +27,8 @@ public class OrderController {
     public String addOrder(@RequestParam("pizzaIds") List<Long> pizzaIds,
                            @Valid OrderAddBindingModel orderAddBindingModel,
                            BindingResult bindingResult,
-                           RedirectAttributes redirectAttributes) {
+                           RedirectAttributes redirectAttributes,
+                           Principal principal) {
 
         //todo validation
         if (bindingResult.hasErrors()) {
@@ -36,7 +38,7 @@ public class OrderController {
             return "redirect:add";
         }
 
-        orderService.makeOrder(pizzaIds, orderAddBindingModel.getDelivery(), orderAddBindingModel.getTotal());
+        orderService.makeOrder(pizzaIds, orderAddBindingModel.getDelivery(), orderAddBindingModel.getTotal(), principal.getName());
 
         return "redirect:/";
     }

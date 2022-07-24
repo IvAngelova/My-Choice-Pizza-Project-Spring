@@ -14,14 +14,6 @@ public interface PizzaRepository extends JpaRepository<PizzaEntity, Long> {
 
     List<PizzaEntity> findByUser_Username(String user_username);
 
-    @Query("UPDATE PizzaEntity p SET p.quantity = ?1 where p.id = ?2 and p.user.id = ?3")
-    @Modifying
-    void updateQuantity(Integer quantity, Long itemId, Long userId);
-
-    @Query("DELETE from PizzaEntity p where p.user.id=?2 and p.id = ?1")
-    @Modifying
-    void deleteByUserAndItem(Long itemId, Long userId);
-
     List<PizzaEntity> findByIdIn(Collection<Long> ids);
 
 }
