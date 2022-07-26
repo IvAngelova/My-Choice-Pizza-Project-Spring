@@ -145,7 +145,7 @@
         </form>
     </div>
 </section>
-
+<div th:replace="fragments/modal :: modal_dialog"></div>
 <footer th:replace="fragments/commons :: footer">
 </footer>
 <script type="text/javascript">
@@ -158,6 +158,7 @@
 </script>
 <script th:src="@{/js/jquery-number.js}"></script>
 <script th:src="@{/js/shopping-cart.js}"></script>
+<script th:src="@{/js/common_modal.js}"></script>
 
 </body>
 

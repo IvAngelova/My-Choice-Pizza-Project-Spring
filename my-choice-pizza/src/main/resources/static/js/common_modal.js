@@ -1,7 +1,8 @@
 function showModalDialog(title, message) {
+	console.log("title: " + title + " message: " + message);
 	$("#modalTitle").text(title);
 	$("#modalBody").text(message);
-	$("#modalDialog").modal();
+	$("#modalDialog").modal("show");
 }
 
 function showErrorModal(message) {
@@ -10,4 +11,8 @@ function showErrorModal(message) {
 
 function showWarningModal(message) {
 	showModalDialog("Warning", message);
-}	
+}
+
+function closeModalDialog() {
+	$("#modalDialog").modal("hide");
+}

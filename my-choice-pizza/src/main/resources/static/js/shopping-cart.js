@@ -56,7 +56,6 @@ function updateQuantity(itemId, quantity) {
  }).done(function (updatedSubtotal) {
   updateSubtotal(updatedSubtotal, itemId);
   updateTotal();
-  //removeSuccessHtml(success)
 
 
  }).fail(function () {
@@ -93,12 +92,11 @@ function removeProduct(link) {
  }).done(function(response) {
   rowNumber = link.attr("rowNumber");
   removeProductHTML(rowNumber);
-//  success = link.attr("success")
- // removeSuccessHtml(success)
   updateTotal();
- // updateCountNumbers();
 
-  showModalDialog("Cart", response);
+  window.location.reload();
+  //showModalDialog("Cart", response);
+
 
  }).fail(function() {
   showErrorModal("Error while removing item.");
@@ -109,13 +107,5 @@ function removeProductHTML(rowNumber) {
  $("#row" + rowNumber).remove();
  $("#blankLine" + rowNumber).remove();
 }
-function removeSuccessHtml(success){
- $("#success").remove();
-}
 
 
-function updateCountNumbers() {
- $(".divCount").each(function(index, element) {
-  element.innerHTML = "" + (index + 1);
- });
-}

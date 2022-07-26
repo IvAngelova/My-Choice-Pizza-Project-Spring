@@ -8,6 +8,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface OrderRepository extends JpaRepository<OrderEntity, Long> {
 
@@ -15,4 +17,6 @@ public interface OrderRepository extends JpaRepository<OrderEntity, Long> {
     @Query("DELETE from OrderEntity o where o.status = :old")
     void deleteAllOldOrders(@Param("old") OrderStatusEnum orderStatusEnum);
 
+
+    List<OrderEntity> findAllByStatusOrderByCreatedAsc(OrderStatusEnum status);
 }

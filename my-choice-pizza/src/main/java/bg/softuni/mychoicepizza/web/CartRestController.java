@@ -53,7 +53,6 @@ public class CartRestController {
 
         UserViewModel userViewModel = userService.findUserByUsername(principal.getName());
         cartService.removeItem(itemId, userViewModel.getId());
-//         redirectAttributes.addFlashAttribute("success", null);
 
         return "The item has been successfully removed from your cart.";
     }

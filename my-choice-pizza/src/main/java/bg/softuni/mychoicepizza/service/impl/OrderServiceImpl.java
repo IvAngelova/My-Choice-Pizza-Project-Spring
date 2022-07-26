@@ -1,11 +1,10 @@
 package bg.softuni.mychoicepizza.service.impl;
 
-import bg.softuni.mychoicepizza.model.entity.CartItemEntity;
-import bg.softuni.mychoicepizza.model.entity.OrderEntity;
-import bg.softuni.mychoicepizza.model.entity.PizzaEntity;
-import bg.softuni.mychoicepizza.model.entity.UserEntity;
+import bg.softuni.mychoicepizza.model.entity.*;
 import bg.softuni.mychoicepizza.model.entity.enums.DeliveryEnum;
 import bg.softuni.mychoicepizza.model.entity.enums.OrderStatusEnum;
+import bg.softuni.mychoicepizza.model.view.OrderViewModel;
+import bg.softuni.mychoicepizza.model.view.PizzaViewModel;
 import bg.softuni.mychoicepizza.repository.CartItemRepository;
 import bg.softuni.mychoicepizza.repository.OrderRepository;
 import bg.softuni.mychoicepizza.repository.PizzaRepository;
@@ -18,6 +17,7 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class OrderServiceImpl implements OrderService {
@@ -40,7 +40,7 @@ public class OrderServiceImpl implements OrderService {
 
         List<CartItemEntity> orderedPizzasCart = cartItemRepository.findByIdInAndUser_Username(pizzaIds, username);
         //todo exception pizza with id doesnt exist
-        if (orderedPizzasCart.isEmpty()){
+        if (orderedPizzasCart.isEmpty()) {
             return;
         }
 
@@ -62,7 +62,7 @@ public class OrderServiceImpl implements OrderService {
             totalPrice = totalPrice.add(pizza.getSubtotal());
         }
 
-        if(delivery.name().equals("С_ДОСТАВКА")){
+        if (delivery.name().equals("С_ДОСТАВКА")) {
             totalPrice = totalPrice.add(new BigDecimal(1));
         }
 
@@ -75,5 +75,33 @@ public class OrderServiceImpl implements OrderService {
                 .setTotal(totalPrice);
 
         orderRepository.save(orderEntity);
+    }
+
+    @Override
+    @Transactional
+    public List<OrderViewModel> findAll() {
+        return orderRepository.findAllByStatusOrderByCreatedAsc(OrderStatusEnum.ЧАКАЩА)
+                .stream()
+                .map(orderEntity -> {
+                    OrderViewModel orderViewModel = modelMapper.map(orderEntity, OrderViewModel.class);
+                    List<PizzaViewModel> pizzas = getPizzaViewModels(orderEntity);
+                    orderViewModel.setPizzas(pizzas);
+                    orderViewModel.setTotal(String.format("%.2f",orderEntity.getTotal()));
+                    return orderViewModel;
+                })
+                .collect(Collectors.toList());
+    }
+
+    private List<PizzaViewModel> getPizzaViewModels(OrderEntity orderEntity) {
+        return orderEntity.getPizzas().stream()
+                .map(pizzaEntity -> {
+                    PizzaViewModel pizzaViewModel = modelMapper.map(pizzaEntity, PizzaViewModel.class);
+                    List<String> ingredients = pizzaEntity.getIngredients()
+                            .stream()
+                            .map(IngredientEntity::getName)
+                            .toList();
+                    pizzaViewModel.setIngredients(ingredients);
+                    return pizzaViewModel;
+                }).collect(Collectors.toList());
     }
 }

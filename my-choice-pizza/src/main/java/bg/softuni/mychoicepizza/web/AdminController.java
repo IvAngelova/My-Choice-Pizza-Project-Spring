@@ -33,4 +33,9 @@ public class AdminController {
         model.addAttribute("allUsers", allUsers);
         return "users-roles";
     }
+
+    @GetMapping("/orders")
+    public String getAllOrders() {
+        return "all-orders";
+    }
 }
