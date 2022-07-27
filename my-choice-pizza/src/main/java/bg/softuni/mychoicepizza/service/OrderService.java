@@ -10,4 +10,6 @@ public interface OrderService {
     void makeOrder(List<Long> pizzaIds, DeliveryEnum delivery, BigDecimal total, String username);
 
     List<OrderViewModel> findAll();
+
+    void readyOrder(Long id);
 }

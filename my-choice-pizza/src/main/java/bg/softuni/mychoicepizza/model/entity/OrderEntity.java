@@ -28,9 +28,6 @@ public class OrderEntity extends BaseEntity{
     @Column(nullable = false)
     private BigDecimal total;
 
-    @Column(columnDefinition = "TEXT")
-    private String comment;
-
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private DeliveryEnum delivery;
@@ -80,15 +77,6 @@ public class OrderEntity extends BaseEntity{
 
     public OrderEntity setTotal(BigDecimal total) {
         this.total = total;
-        return this;
-    }
-
-    public String getComment() {
-        return comment;
-    }
-
-    public OrderEntity setComment(String comment) {
-        this.comment = comment;
         return this;
     }
 

@@ -5,9 +5,7 @@ import bg.softuni.mychoicepizza.model.binding.OrderAddBindingModel;
 import bg.softuni.mychoicepizza.service.OrderService;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
@@ -41,6 +39,12 @@ public class OrderController {
         orderService.makeOrder(pizzaIds, orderAddBindingModel.getDelivery(), orderAddBindingModel.getTotal(), principal.getName());
 
         return "redirect:/";
+    }
+
+    @PostMapping("/{id}/ready")
+    public String readyOrder(@PathVariable Long id){
+        orderService.readyOrder(id);
+        return "redirect:/admin/orders";
     }
 
 

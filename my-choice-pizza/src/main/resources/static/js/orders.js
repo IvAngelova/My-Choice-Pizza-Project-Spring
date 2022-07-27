@@ -1,3 +1,4 @@
+const csrfHeaderValue = document.head.querySelector('[name="_csrf"]').content;
 const ordersCtnr = document.getElementById('ordersCtnr')
 const allOrders = []
 
@@ -85,7 +86,12 @@ function asOrder(o) {
         <p>телефон: ${o.user.phoneNumber} </p>
         <p>адрес: ${o.user.address}</p>
     </td>
-    <td><a class="btn" th:href="@{/}">Готова</a></td>
+    <td>
+      <form action="/orders/${o.id}/ready" method="post">
+         <input type="hidden" name="_csrf" value="${csrfHeaderValue}">
+         <input type="submit" class="btn" value="Готова"/>
+      </form>
+    </td>
 </tr>`
 
     return orderHtml

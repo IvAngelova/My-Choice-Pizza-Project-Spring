@@ -96,6 +96,17 @@ public class OrderServiceImpl implements OrderService {
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public void readyOrder(Long id) {
+        //todo
+        OrderEntity orderEntity = orderRepository
+                .findById(id)
+                .orElseThrow(() -> new IllegalArgumentException());
+
+        orderEntity.setStatus(OrderStatusEnum.ГОТОВА);
+        orderRepository.save(orderEntity);
+    }
+
     private List<PizzaViewModel> getPizzaViewModels(OrderEntity orderEntity) {
         return orderEntity.getPizzas().stream()
                 .map(pizzaEntity -> {
