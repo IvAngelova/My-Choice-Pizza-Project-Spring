@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -87,6 +88,9 @@ public class OrderServiceImpl implements OrderService {
                     List<PizzaViewModel> pizzas = getPizzaViewModels(orderEntity);
                     orderViewModel.setPizzas(pizzas);
                     orderViewModel.setTotal(String.format("%.2f",orderEntity.getTotal()));
+                    DateTimeFormatter df = DateTimeFormatter.ofPattern("dd-MM-yyyy / HH:mm");
+                    String formatOrderCreated = df.format(orderEntity.getCreated());
+                    orderViewModel.setCreated(formatOrderCreated);
                     return orderViewModel;
                 })
                 .collect(Collectors.toList());

@@ -11,7 +11,7 @@ public class OrderViewModel {
     private Long id;
     private UserViewModel user;
     private List<PizzaViewModel> pizzas;
-    private LocalDateTime created;
+    private String created;
     private String total;
     private DeliveryEnum delivery;
 
@@ -30,15 +30,6 @@ public class OrderViewModel {
 
     public OrderViewModel setPizzas(List<PizzaViewModel> pizzas) {
         this.pizzas = pizzas;
-        return this;
-    }
-
-    public LocalDateTime getCreated() {
-        return created;
-    }
-
-    public OrderViewModel setCreated(LocalDateTime created) {
-        this.created = created;
         return this;
     }
 
@@ -66,6 +57,15 @@ public class OrderViewModel {
 
     public OrderViewModel setId(Long id) {
         this.id = id;
+        return this;
+    }
+
+    public String getCreated() {
+        return created;
+    }
+
+    public OrderViewModel setCreated(String created) {
+        this.created = created;
         return this;
     }
 }

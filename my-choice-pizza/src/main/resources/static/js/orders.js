@@ -78,7 +78,7 @@ function asOrder(o) {
     orderHtml += `</ol>
 </td>
     <td>${o.total} лв.</td>
-    <td>${o.created}</td>
+    <td>${o.created} ч.</td>
     <td>${o.delivery}</td>
     <td class="col-3">
         <p>потребителско име: ${o.user.username}</p>
