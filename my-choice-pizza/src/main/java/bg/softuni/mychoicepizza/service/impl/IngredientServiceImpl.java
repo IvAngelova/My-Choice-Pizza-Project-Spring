@@ -1,5 +1,6 @@
 package bg.softuni.mychoicepizza.service.impl;
 
+import bg.softuni.mychoicepizza.exception.ObjectNotFoundException;
 import bg.softuni.mychoicepizza.model.entity.IngredientEntity;
 import bg.softuni.mychoicepizza.model.entity.PictureEntity;
 import bg.softuni.mychoicepizza.model.entity.enums.CategoryNameEnum;
@@ -76,8 +77,7 @@ public class IngredientServiceImpl implements IngredientService {
     public void deleteIngredientById(Long id) {
         Optional<IngredientEntity> ingredientOpt = ingredientRepository.findById(id);
         if (ingredientOpt.isEmpty()) {
-            //TODO
-            throw new IllegalArgumentException();
+            throw new ObjectNotFoundException("Не съществува такава съставка!");
         }
         String publicId = ingredientOpt.get().getPicture().getPublicId();
         if (cloudinaryService.delete(publicId)) {

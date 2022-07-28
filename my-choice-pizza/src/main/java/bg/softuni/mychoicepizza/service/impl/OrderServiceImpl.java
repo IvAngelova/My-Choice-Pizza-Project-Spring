@@ -1,5 +1,6 @@
 package bg.softuni.mychoicepizza.service.impl;
 
+import bg.softuni.mychoicepizza.exception.ObjectNotFoundException;
 import bg.softuni.mychoicepizza.model.entity.*;
 import bg.softuni.mychoicepizza.model.entity.enums.DeliveryEnum;
 import bg.softuni.mychoicepizza.model.entity.enums.OrderStatusEnum;
@@ -40,7 +41,7 @@ public class OrderServiceImpl implements OrderService {
     public void makeOrder(List<Long> pizzaIds, DeliveryEnum delivery, BigDecimal total, String username) {
 
         List<CartItemEntity> orderedPizzasCart = cartItemRepository.findByIdInAndUser_Username(pizzaIds, username);
-        //todo exception pizza with id doesnt exist
+
         if (orderedPizzasCart.isEmpty()) {
             return;
         }
@@ -98,10 +99,9 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public void readyOrder(Long id) {
-        //todo
         OrderEntity orderEntity = orderRepository
                 .findById(id)
-                .orElseThrow(() -> new IllegalArgumentException());
+                .orElseThrow(() -> new ObjectNotFoundException("Не съществува такава поръчка!"));
 
         orderEntity.setStatus(OrderStatusEnum.ГОТОВА);
         orderRepository.save(orderEntity);

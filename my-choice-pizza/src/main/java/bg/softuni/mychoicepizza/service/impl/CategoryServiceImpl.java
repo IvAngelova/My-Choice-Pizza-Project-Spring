@@ -1,5 +1,6 @@
 package bg.softuni.mychoicepizza.service.impl;
 
+import bg.softuni.mychoicepizza.exception.ObjectNotFoundException;
 import bg.softuni.mychoicepizza.model.entity.CategoryEntity;
 import bg.softuni.mychoicepizza.model.entity.enums.CategoryNameEnum;
 import bg.softuni.mychoicepizza.model.view.CategoryViewModel;
@@ -24,7 +25,7 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public CategoryEntity findCategoryByName(CategoryNameEnum categoryNameEnum) {
         return categoryRepository.findByName(categoryNameEnum)
-                .orElseThrow(() -> new IllegalArgumentException());
+                .orElseThrow(() -> new ObjectNotFoundException("Не съществува категория с такова име!"));
     }
 
     @Override

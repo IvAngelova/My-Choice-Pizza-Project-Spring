@@ -1,5 +1,6 @@
 package bg.softuni.mychoicepizza.service.impl;
 
+import bg.softuni.mychoicepizza.exception.ObjectNotFoundException;
 import bg.softuni.mychoicepizza.model.entity.UserEntity;
 import bg.softuni.mychoicepizza.model.entity.UserRoleEntity;
 import bg.softuni.mychoicepizza.model.entity.enums.RoleNameEnum;
@@ -58,17 +59,15 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserViewModel findUserByUsername(String username) {
-        //todo
         return userRepository.findByUsername(username)
                 .map(userEntity -> modelMapper.map(userEntity, UserViewModel.class))
-                .orElseThrow(() -> new IllegalArgumentException());
+                .orElseThrow(() -> new ObjectNotFoundException("Не съществува потребител с такова име!"));
     }
 
     @Override
     public void editProfile(UserProfileServiceModel userProfileServiceModel) {
-        //todo
         UserEntity userEntity = userRepository.findById(userProfileServiceModel.getId())
-                .orElseThrow(() -> new IllegalArgumentException());
+                .orElseThrow(() -> new ObjectNotFoundException("Не съществува потребител с такова име!"));
 
         userEntity.setFullName(userProfileServiceModel.getFullName())
                 .setPhoneNumber(userProfileServiceModel.getPhoneNumber())
@@ -117,10 +116,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void changeRole(Long id) {
-        //todo
         UserEntity userEntity = userRepository
                 .findById(id)
-                .orElseThrow(() -> new IllegalArgumentException());
+                .orElseThrow(() -> new ObjectNotFoundException("Не съществува потребител с такова име!"));
 
         UserRoleEntity adminRole = userRoleRepository.findByRole(RoleNameEnum.ADMIN);
         UserRoleEntity userRole = userRoleRepository.findByRole(RoleNameEnum.USER);

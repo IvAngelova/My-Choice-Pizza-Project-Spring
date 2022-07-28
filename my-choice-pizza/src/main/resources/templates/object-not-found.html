@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/commons :: head">
+</head>
+<body>
+
+<div class="container">
+    <h1 class="text-white text-center"></h1>
+    <div class="main-fone error-page">
+        <h1>Възникна грешка!</h1>
+        <h3 th:text="${errorMessage}"></h3>
+    </div>
+</div>
+</body>
+</html>

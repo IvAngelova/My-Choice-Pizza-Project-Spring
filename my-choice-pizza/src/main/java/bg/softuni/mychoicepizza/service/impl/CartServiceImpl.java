@@ -1,5 +1,6 @@
 package bg.softuni.mychoicepizza.service.impl;
 
+import bg.softuni.mychoicepizza.exception.ObjectNotFoundException;
 import bg.softuni.mychoicepizza.model.entity.*;
 import bg.softuni.mychoicepizza.model.service.PizzaServiceModel;
 import bg.softuni.mychoicepizza.model.view.PizzaViewModel;
@@ -34,18 +35,19 @@ public class CartServiceImpl implements CartService {
     @Override
     public void addNewCartItem(PizzaServiceModel pizzaServiceModel, String username) {
 
-        //todo
         List<IngredientEntity> ingredients = new ArrayList<>();
         for (String ingredientName : pizzaServiceModel.getIngredients()) {
             IngredientEntity ingredientEntity = ingredientRepository.findByName(ingredientName)
-                    .orElseThrow(() -> new IllegalArgumentException());
+                    .orElseThrow(() -> new ObjectNotFoundException("Не съществува такава съставка!"));
             ingredients.add(ingredientEntity);
         }
 
         UserEntity userEntity = userRepository.findByUsername(username).
-                orElseThrow(() -> new IllegalArgumentException());
+                orElseThrow(() -> new ObjectNotFoundException("Не съществува потребител с такова име!"));
 
-        PriceEntity priceEntity = priceRepository.findByPizzaSize(pizzaServiceModel.getSize());
+        PriceEntity priceEntity = priceRepository
+                .findByPizzaSize(pizzaServiceModel.getSize())
+                .orElseThrow(() -> new ObjectNotFoundException("Не съществува такава цена спрямо подадения размер пица!"));
         BigDecimal basePrice = priceEntity.getBasePrice();
         BigDecimal additionalProductPrice = priceEntity.getAdditionalProductPrice();
         BigDecimal price = basePrice.add(additionalProductPrice.multiply(new BigDecimal(ingredients.size())));
@@ -83,7 +85,9 @@ public class CartServiceImpl implements CartService {
 
         cartItemRepository.updateQuantity(quantity, itemId, userId);
 
-        CartItemEntity cartItemEntity = cartItemRepository.findById(itemId).get();
+        CartItemEntity cartItemEntity = cartItemRepository
+                .findById(itemId)
+                .orElseThrow(() -> new ObjectNotFoundException("Не съществува такъв продукт!"));
 
         return cartItemEntity.getPrice().multiply(BigDecimal.valueOf(quantity));
     }
