@@ -4,6 +4,7 @@ import bg.softuni.mychoicepizza.model.entity.enums.PizzaBaseEnum;
 import bg.softuni.mychoicepizza.model.entity.enums.SizeEnum;
 import bg.softuni.mychoicepizza.model.view.IngredientViewModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class PizzaServiceModel {
@@ -13,6 +14,10 @@ public class PizzaServiceModel {
     private PizzaBaseEnum base;
 
     private List<String> ingredients;
+
+    public PizzaServiceModel() {
+        this.ingredients = new ArrayList<>();
+    }
 
     public SizeEnum getSize() {
         return size;

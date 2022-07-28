@@ -4,18 +4,20 @@ import bg.softuni.mychoicepizza.model.entity.enums.PizzaBaseEnum;
 import bg.softuni.mychoicepizza.model.entity.enums.SizeEnum;
 
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
 import java.util.List;
 
 public class PizzaBindingModel {
 
-    @NotNull
+    @NotNull(message = "Полето е задължително!")
     private SizeEnum size;
-    @NotNull
+    @NotNull(message = "Полето е задължително!")
     private PizzaBaseEnum base;
 
     private List<String> ingredients;
 
     public PizzaBindingModel() {
+        this.ingredients = new ArrayList<>();
     }
 
     public SizeEnum getSize() {

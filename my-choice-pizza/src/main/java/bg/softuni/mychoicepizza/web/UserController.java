@@ -16,6 +16,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import java.security.Principal;
+import java.util.Objects;
 
 @Controller
 @RequestMapping("/users")
@@ -101,6 +102,10 @@ public class UserController {
                                   BindingResult bindingResult,
                                   RedirectAttributes redirectAttributes,
                                   Principal principal) {
+        UserViewModel userViewModel = userService.findUserByUsername(principal.getName());
+        if (!Objects.equals(userViewModel.getId(), id)) {
+            return "error/403";
+        }
         if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("userProfileBindingModel", userProfileBindingModel)
                     .addFlashAttribute("org.springframework.validation.BindingResult.userProfileBindingModel",
@@ -124,7 +129,7 @@ public class UserController {
 
 
     @PatchMapping("/{id}/changeRoles")
-    public String changeRole(@PathVariable Long id){
+    public String changeRole(@PathVariable Long id) {
         userService.changeRole(id);
         return "redirect:/admin/allUsers";
     }

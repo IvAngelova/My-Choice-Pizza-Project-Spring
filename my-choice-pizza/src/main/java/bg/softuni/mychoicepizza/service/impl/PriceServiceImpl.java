@@ -23,7 +23,10 @@ public class PriceServiceImpl implements PriceService {
     @Override
     public PriceViewModel findPriceByPizzaSize(SizeEnum sizeEnum) {
 
-        return modelMapper.map(priceRepository.findByPizzaSize(sizeEnum), PriceViewModel.class);
+      return   priceRepository.findByPizzaSize(sizeEnum)
+                .map(priceEntity -> modelMapper.map(priceEntity, PriceViewModel.class))
+                .orElseThrow(() -> new ObjectNotFoundException("Не съществува такава цена!"));
+
 
     }
 

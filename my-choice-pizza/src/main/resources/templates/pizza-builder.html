@@ -17,10 +17,13 @@
 
             <div th:each="s : ${T(bg.softuni.mychoicepizza.model.entity.enums.SizeEnum).values()}"
                  class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="size" th:id="${s}"
+                <input class="form-check-input" type="radio" required th:field="*{size}" name="size" th:id="${s}"
                        th:value="${s}">
                 <label class="form-check-label" th:for="${s}" th:text="${s.name().toLowerCase()}"></label>
             </div>
+            <p th:if="${#fields.hasErrors('size')}" th:errors = "*{size}" class="text-danger fw-bold">
+                Size is required.
+            </p>
         </section>
     </div>
 
@@ -30,10 +33,13 @@
 
             <div th:each="b : ${T(bg.softuni.mychoicepizza.model.entity.enums.PizzaBaseEnum).values()}"
                  class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="base" th:id="${b}"
+                <input class="form-check-input" type="radio" required th:field="*{base}" name="base" th:id="${b}"
                        th:value="${b}">
                 <label class="form-check-label" th:for="${b}" th:text="${b.name().toLowerCase()}"></label>
             </div>
+            <p th:if="${#fields.hasErrors('base')}" th:errors = "*{base}" class="text-danger fw-bold">
+                Base is required.
+            </p>
 
         </section>
     </div>
