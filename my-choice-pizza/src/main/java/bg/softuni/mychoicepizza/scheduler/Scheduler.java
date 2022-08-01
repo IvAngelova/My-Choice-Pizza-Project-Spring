@@ -25,8 +25,10 @@ public class Scheduler {
     @Transactional
     @Scheduled(cron = "0 0 2 * * *")
     public void deleteAllOldOrders() {
+
+        List<Long> allPizzaIdsFromOldOrders = pizzaRepository.getAllPizzaIdsFromOldOrders(OrderStatusEnum.ГОТОВА);
+
         orderRepository.deleteAllOldOrders(OrderStatusEnum.ГОТОВА);
-        List<Long> allPizzaIdsFromOldOrders = pizzaRepository.getAllPizzaIdsFromOldOrders();
         pizzaRepository.deleteAllByIdIn(allPizzaIdsFromOldOrders);
         System.out.println("scheduler");
     }

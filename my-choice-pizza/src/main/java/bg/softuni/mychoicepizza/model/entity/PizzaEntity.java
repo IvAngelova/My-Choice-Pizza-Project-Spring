@@ -18,6 +18,9 @@ public class PizzaEntity extends BaseEntity {
     @ManyToMany
     private List<IngredientEntity> ingredients;
 
+    @ManyToMany(mappedBy = "pizzas", targetEntity = OrderEntity.class)
+    private List<OrderEntity> orders;
+
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private PizzaBaseEnum base;
@@ -90,6 +93,15 @@ public class PizzaEntity extends BaseEntity {
 
     public PizzaEntity setPrice(BigDecimal price) {
         this.price = price;
+        return this;
+    }
+
+    public List<OrderEntity> getOrders() {
+        return orders;
+    }
+
+    public PizzaEntity setOrders(List<OrderEntity> orders) {
+        this.orders = orders;
         return this;
     }
 }
