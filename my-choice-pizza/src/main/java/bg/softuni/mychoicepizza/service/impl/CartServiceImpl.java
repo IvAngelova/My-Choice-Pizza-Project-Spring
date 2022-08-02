@@ -68,16 +68,20 @@ public class CartServiceImpl implements CartService {
         return cartItemRepository.findByUser_Username(username)
                 .stream()
                 .map(cartItemEntity -> {
-                    PizzaViewModel pizzaViewModel = modelMapper.map(cartItemEntity, PizzaViewModel.class);
-                    List<String> ingredients = cartItemEntity.getIngredients()
-                            .stream()
-                            .map(IngredientEntity::getName)
-                            .toList();
-                    pizzaViewModel.setIngredients(ingredients);
-                    pizzaViewModel.setUsername(username);
-                    return pizzaViewModel;
+                    return mapToPizzaViewModel(username, cartItemEntity);
                 })
                 .collect(Collectors.toList());
+    }
+
+    private PizzaViewModel mapToPizzaViewModel(String username, CartItemEntity cartItemEntity) {
+        PizzaViewModel pizzaViewModel = modelMapper.map(cartItemEntity, PizzaViewModel.class);
+        List<String> ingredients = cartItemEntity.getIngredients()
+                .stream()
+                .map(IngredientEntity::getName)
+                .toList();
+        pizzaViewModel.setIngredients(ingredients);
+        pizzaViewModel.setUsername(username);
+        return pizzaViewModel;
     }
 
     @Override

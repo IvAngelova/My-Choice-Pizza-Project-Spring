@@ -60,17 +60,19 @@ public class IngredientServiceImpl implements IngredientService {
 
         return ingredientRepository.findAllByCategory_Name(categoryNameEnum)
                 .stream()
-                .map(ingredientEntity -> {
-                    IngredientViewModel ingredientViewModel = modelMapper.map(ingredientEntity, IngredientViewModel.class);
-                    PictureViewModel pictureViewModel = new PictureViewModel();
-                    pictureViewModel.setTitle(ingredientEntity.getPicture().getTitle())
-                            .setUrl(ingredientEntity.getPicture().getUrl());
-                    ingredientViewModel.setPicture(pictureViewModel);
-                    return ingredientViewModel;
-                })
+                .map(this::mapToIngredientViewModel)
                 .collect(Collectors.toList());
 
 
+    }
+
+    private IngredientViewModel mapToIngredientViewModel(IngredientEntity ingredientEntity) {
+        IngredientViewModel ingredientViewModel = modelMapper.map(ingredientEntity, IngredientViewModel.class);
+        PictureViewModel pictureViewModel = new PictureViewModel();
+        pictureViewModel.setTitle(ingredientEntity.getPicture().getTitle())
+                .setUrl(ingredientEntity.getPicture().getUrl());
+        ingredientViewModel.setPicture(pictureViewModel);
+        return ingredientViewModel;
     }
 
     @Override

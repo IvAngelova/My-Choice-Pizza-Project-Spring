@@ -1,9 +1,6 @@
 package bg.softuni.mychoicepizza.model.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "pictures")
@@ -12,7 +9,8 @@ public class PictureEntity extends BaseEntity{
     @Column
     private String title;
 
-    @Column(columnDefinition = "TEXT", nullable = false)
+    @Lob
+    @Column(nullable = false)
     private String url;
 
     @Column
