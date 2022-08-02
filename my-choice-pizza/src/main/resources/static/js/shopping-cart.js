@@ -76,9 +76,29 @@ function updateTotal() {
   total += parseFloat(element.innerHTML);
  });
 
- $("#total").text($.number(total, 2) + "лв.");
+ $("#total").text($.number(total, 2) + " лв.");
+ $("#endPrice").text($.number(total, 2) + " лв.");
+ if ($('#delivery').val() === "С_ДОСТАВКА" && total > 0) {
+  $("#endPrice").text($.number(total + 1, 2) + " лв.");
+ }
 }
 
+$('#delivery').change(function() {
+ delivery = $(this).val();
+ console.log("delivery method selected: " + delivery);
+ if (delivery === "С_ДОСТАВКА") {
+  var endPriceText = $("#endPrice").text();
+  console.log("endPriceText: " + endPriceText);
+  var endPriceVal = endPriceText.substring(0, endPriceText.indexOf(" "));
+  console.log("endPriceVal: " + endPriceVal);
+  console.log("parseFloat: " + parseFloat(endPriceVal));
+  var endPrice = parseFloat(endPriceVal.replace(",", ".")) + 1;
+  console.log("endPrice: " + endPrice);
+  $("#endPrice").text($.number(endPrice, 2) + " лв.");
+ } else {
+  updateTotal();
+ }
+});
 
 function removeProduct(link) {
  url = link.attr("href");

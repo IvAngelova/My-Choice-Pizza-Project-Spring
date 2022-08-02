@@ -34,6 +34,7 @@ public class CartController {
             estimatedTotal = estimatedTotal.add(pizzaViewModel.getSubtotal());
         }
         model.addAttribute("estimatedTotal", estimatedTotal);
+        model.addAttribute("estimatedEndPrice", estimatedTotal);
         return "shopping-cart";
     }
 
