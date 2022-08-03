@@ -9,5 +9,5 @@ public interface PriceService {
 
     PriceViewModel findById(Long id);
 
-    void editPrice(PriceServiceModel priceServiceModel);
+    PriceServiceModel editPrice(PriceServiceModel priceServiceModel);
 }

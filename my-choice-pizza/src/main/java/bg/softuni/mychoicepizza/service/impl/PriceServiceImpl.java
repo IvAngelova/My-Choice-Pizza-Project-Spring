@@ -38,13 +38,13 @@ public class PriceServiceImpl implements PriceService {
     }
 
     @Override
-    public void editPrice(PriceServiceModel priceServiceModel) {
+    public PriceServiceModel editPrice(PriceServiceModel priceServiceModel) {
         PriceEntity priceEntity = priceRepository.findById(priceServiceModel.getId())
                 .orElseThrow(() -> new ObjectNotFoundException("Не съществува цена с това id!"));
 
         priceEntity.setBasePrice(priceServiceModel.getBasePrice())
                 .setAdditionalProductPrice(priceServiceModel.getAdditionalProductPrice());
 
-        priceRepository.save(priceEntity);
+        return modelMapper.map(priceRepository.save(priceEntity),PriceServiceModel.class);
     }
 }

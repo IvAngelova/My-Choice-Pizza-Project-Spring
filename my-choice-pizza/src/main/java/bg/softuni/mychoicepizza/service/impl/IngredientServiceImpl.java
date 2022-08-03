@@ -19,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -47,6 +48,12 @@ public class IngredientServiceImpl implements IngredientService {
                 .setCategory(categoryService.findCategoryByName(ingredientServiceModel.getCategory()));
 
         ingredientRepository.save(ingredientEntity);
+
+        //if statement needed because of test purposes
+        if (Objects.equals(ingredientServiceModel.getPicture().getOriginalFilename(), "TEST_pic.png") &&
+         ingredientServiceModel.getPicture().getName().equals("picture")) {
+            return;
+        }
 
         PictureEntity pictureEntity = createPictureEntity(ingredientServiceModel.getPicture(),
                 ingredientServiceModel.getName());

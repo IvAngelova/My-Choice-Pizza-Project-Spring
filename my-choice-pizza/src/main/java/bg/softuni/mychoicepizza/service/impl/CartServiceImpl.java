@@ -33,7 +33,7 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public void addNewCartItem(PizzaServiceModel pizzaServiceModel, String username) {
+    public CartItemEntity addNewCartItem(PizzaServiceModel pizzaServiceModel, String username) {
 
         List<IngredientEntity> ingredients = new ArrayList<>();
         for (String ingredientName : pizzaServiceModel.getIngredients()) {
@@ -60,7 +60,7 @@ public class CartServiceImpl implements CartService {
                 .setUser(userEntity)
                 .setPrice(price);
 
-        cartItemRepository.save(cartItemEntity);
+      return  cartItemRepository.save(cartItemEntity);
     }
 
     @Override

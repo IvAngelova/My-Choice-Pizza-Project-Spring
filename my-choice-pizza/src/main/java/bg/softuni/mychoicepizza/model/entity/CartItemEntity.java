@@ -5,11 +5,12 @@ import bg.softuni.mychoicepizza.model.entity.enums.SizeEnum;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table(name = "cart_items")
-public class CartItemEntity extends BaseEntity{
+public class CartItemEntity extends BaseEntity {
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private SizeEnum size;
@@ -33,6 +34,10 @@ public class CartItemEntity extends BaseEntity{
     @Transient
     public BigDecimal getSubtotal() {
         return this.price.multiply(new BigDecimal(this.quantity));
+    }
+
+    public CartItemEntity() {
+        this.ingredients = new ArrayList<>();
     }
 
     public SizeEnum getSize() {

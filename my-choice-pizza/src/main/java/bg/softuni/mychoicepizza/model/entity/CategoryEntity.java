@@ -3,6 +3,7 @@ package bg.softuni.mychoicepizza.model.entity;
 import bg.softuni.mychoicepizza.model.entity.enums.CategoryNameEnum;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -16,6 +17,7 @@ public class CategoryEntity extends BaseEntity {
     private List<IngredientEntity> ingredients;
 
     public CategoryEntity() {
+        this.ingredients = new ArrayList<>();
     }
 
     public CategoryNameEnum getName() {
