@@ -38,7 +38,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     @Transactional
-    public void makeOrder(List<Long> pizzaIds, DeliveryEnum delivery, BigDecimal total, String username) {
+    public void makeOrder(List<Long> pizzaIds, DeliveryEnum delivery, String username) {
 
         List<CartItemEntity> orderedPizzasCart = cartItemRepository.findByIdInAndUser_Username(pizzaIds, username);
 

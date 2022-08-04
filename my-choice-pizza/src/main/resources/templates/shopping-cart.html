@@ -18,11 +18,7 @@
                             <h5 class="mb-0">Количка</h5>
                         </div>
 
-<!--                        <div th:each="orderPizza : *{orderPizzaList}" >-->
-<!--                        </div>-->
-                            <!--                                    <input type="hidden" th:field="*{orderPizzaList[__${statItem.index}__].id}"  th:value="${p.id}"/>-->
-
-                        <div th:each="p, status : ${pizzas}"  class="card-body">
+                        <div th:each="p, status : ${pizzas}" class="card-body">
                             <input type="hidden" name="pizzaIds" th:value="${p.id}"/>
                             <!-- Single item -->
                             <div class="row" th:id="'row' + ${status.count}">
@@ -63,7 +59,7 @@
 
                                         <div class="form-outline">
                                             <input th:id="'quantity' + ${p.id}" min="1" name="quantity"
-                                                  th:value="${p.quantity}" type="text"
+                                                   th:value="${p.quantity}" type="text"
                                                    class="form-control"/>
                                         </div>
 
@@ -113,19 +109,15 @@
                             <h5 class="mb-3">Доставка</h5>
 
                             <div class="mb-4 pb-2">
-                                <!--                            <select class="select">-->
-                                <!--                                <option value="1">Standard-Delivery- €5.00</option>-->
-                                <!--                                <option value="2">Two</option>-->
-                                <!--                            </select>-->
                                 <select id="delivery" class="form-control" th:field="*{delivery}" required>
                                     <option selected value="">- Избери опция -</option>
-                                    <option th:each="d : ${T(bg.softuni.mychoicepizza.model.entity.enums.DeliveryEnum).values()}"
-                                            th:text="${d}" th:value="${d}">
+                                    <option th:each="delivery : ${T(bg.softuni.mychoicepizza.model.entity.enums.DeliveryEnum).values()}"
+                                            th:text="${delivery}" th:value="${delivery}">
                                     </option>
                                 </select>
-                                <!--                            <p th:if="${#fields.hasErrors('category')}" th:errors = "*{category}" class="text-danger fw-bold">-->
-                                <!--                                Category is required.-->
-                                <!--                            </p>-->
+                                <p th:if="${#fields.hasErrors('delivery')}" th:errors="*{delivery}" class="text-danger fw-bold">
+                                    Delivery is required.
+                                </p>
                             </div>
 
                             <hr class="my-4">

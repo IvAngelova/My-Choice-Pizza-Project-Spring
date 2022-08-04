@@ -28,15 +28,14 @@ public class OrderController {
                            RedirectAttributes redirectAttributes,
                            Principal principal) {
 
-        //todo validation
         if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("orderAddBindingModel", orderAddBindingModel);
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.orderAddBindingModel", bindingResult);
 
-            return "redirect:add";
+            return "redirect:/cart";
         }
 
-        orderService.makeOrder(pizzaIds, orderAddBindingModel.getDelivery(), orderAddBindingModel.getTotal(), principal.getName());
+        orderService.makeOrder(pizzaIds, orderAddBindingModel.getDelivery(), principal.getName());
 
         return "redirect:/";
     }
