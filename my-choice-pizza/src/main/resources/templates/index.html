@@ -8,6 +8,7 @@
 <body>
 <nav th:replace="fragments/commons :: nav"></nav>
 <main>
+    <div th:if="${success != null}" th:text="${success}" role="alert" class="alert alert-success text-center fw-bold"></div>
     <section class="my-main-section">
 
         <div class="col-lg-8 mx-auto">
@@ -15,7 +16,6 @@
                 <div class="card-body text-dark">
                     <h1 class="card-title">Избери пица изцяло по твой вкус!</h1>
                     <h5 class="card-text">Ние ще я направим и доставим до твоята врата!</h5>
-<!--                    <a href="#" class="btn btn-primary btn-lg" role="button">Научи повече</a>-->
                 </div>
             </div>
         </div>

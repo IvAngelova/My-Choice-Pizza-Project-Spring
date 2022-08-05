@@ -53,11 +53,11 @@ class AdminRestControllerTest {
     @BeforeEach
     void setUp() {
         testUser = new UserEntity();
-        testUser.setPassword("password");
-        testUser.setUsername("pesho");
-        testUser.setAddress("address");
-        testUser.setFullName("Pesho Petrov");
-        testUser.setPhoneNumber("0000000000");
+        testUser.setPassword("password")
+                .setUsername("pesho")
+                .setAddress("address")
+                .setFullName("Pesho Petrov")
+                .setPhoneNumber("0000000000");
 
         testUser = userRepository.save(testUser);
     }

@@ -2,6 +2,7 @@ package bg.softuni.mychoicepizza.web;
 
 
 import bg.softuni.mychoicepizza.model.binding.OrderAddBindingModel;
+import bg.softuni.mychoicepizza.model.entity.OrderEntity;
 import bg.softuni.mychoicepizza.service.OrderService;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -11,6 +12,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.validation.Valid;
 import java.security.Principal;
 import java.util.List;
+import java.util.Objects;
 
 @Controller
 @RequestMapping("/orders")
@@ -35,13 +37,18 @@ public class OrderController {
             return "redirect:/cart";
         }
 
-        orderService.makeOrder(pizzaIds, orderAddBindingModel.getDelivery(), principal.getName());
+        boolean orderSuccessful = orderService.makeOrder(pizzaIds, orderAddBindingModel.getDelivery(), principal.getName());
 
+        if (orderSuccessful) {
+            redirectAttributes.addFlashAttribute("success", "Поръчката беше направена успешно!");
+        } else {
+            redirectAttributes.addFlashAttribute("success", "Възникна проблем по време на Вашата поръчката! Моля поръчайте отново!");
+        }
         return "redirect:/";
     }
 
     @PostMapping("/{id}/ready")
-    public String readyOrder(@PathVariable Long id){
+    public String readyOrder(@PathVariable Long id) {
         orderService.readyOrder(id);
         return "redirect:/admin/orders";
     }

@@ -22,17 +22,17 @@
                     </tr>
                     <tr>
                         <th scope="col">Размер:</th>
-                        <th scope="col">Малка(26см)</th>
-                        <th scope="col">Средна(32см)</th>
-                        <th scope="col">Голяма(42см)</th>
-                        <th scope="col">Парти(50см)</th>
+                        <th scope="col">Малка (26 см)</th>
+                        <th scope="col">Средна (32 см)</th>
+                        <th scope="col">Голяма (42 см)</th>
+                        <th scope="col">Парти (50 см)</th>
                     </tr>
                     <tr>
                         <th scope="col">Грамаж:</th>
-                        <th scope="col">450гр.</th>
-                        <th scope="col">740гр.</th>
-                        <th scope="col">1220гр.</th>
-                        <th scope="col">2150гр.</th>
+                        <th scope="col">450 гр.</th>
+                        <th scope="col">740 гр.</th>
+                        <th scope="col">1220 гр.</th>
+                        <th scope="col">2150 гр.</th>
                     </tr>
                     <tr>
                         <th scope="col">Продукти:</th>
@@ -41,10 +41,10 @@
                 <tbody>
                     <tr>
                         <th scope="row">Основа (включва кашкавал)</th>
-                        <td th:text="|${small.getBasePrice()}лв.|">6.80лв.</td>
-                        <td th:text="|${medium.getBasePrice()}лв.|">8.60лв.</td>
-                        <td th:text="|${large.getBasePrice()}лв.|">12.80лв.</td>
-                        <td th:text="|${party.getBasePrice()}лв.|">17.30лв.</td>
+                        <td th:text="|${small.getBasePrice()} лв.|">6.80лв.</td>
+                        <td th:text="|${medium.getBasePrice()} лв.|">8.60лв.</td>
+                        <td th:text="|${large.getBasePrice()} лв.|">12.80лв.</td>
+                        <td th:text="|${party.getBasePrice()} лв.|">17.30лв.</td>
                     </tr>
 <!--                    <tr>-->
 <!--                        <th scope="row">+ 1-ви продукт</th>-->
@@ -69,10 +69,10 @@
 <!--                    </tr>-->
                     <tr>
                         <th scope="row">+ всеки следващ доп. продукт</th>
-                        <td th:text="|${small.getAdditionalProductPrice()}лв.|">0.50лв.</td>
-                        <td th:text="|${medium.getAdditionalProductPrice()}лв.|">0.70лв.</td>
-                        <td th:text="|${large.getAdditionalProductPrice()}лв.|">1.00лв.</td>
-                        <td th:text="|${party.getAdditionalProductPrice()}лв.|">1.60лв.</td>
+                        <td th:text="|${small.getAdditionalProductPrice()} лв.|">0.50лв.</td>
+                        <td th:text="|${medium.getAdditionalProductPrice()} лв.|">0.70лв.</td>
+                        <td th:text="|${large.getAdditionalProductPrice()} лв.|">1.00лв.</td>
+                        <td th:text="|${party.getAdditionalProductPrice()} лв.|">1.60лв.</td>
                     </tr>
                     <tr sec:authorize="hasRole('ADMIN')">
                         <th scope="row">Редактирай цена</th>

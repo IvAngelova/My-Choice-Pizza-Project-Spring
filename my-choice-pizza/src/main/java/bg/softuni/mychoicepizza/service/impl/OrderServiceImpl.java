@@ -19,6 +19,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
@@ -38,12 +39,12 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     @Transactional
-    public void makeOrder(List<Long> pizzaIds, DeliveryEnum delivery, String username) {
+    public boolean makeOrder(List<Long> pizzaIds, DeliveryEnum delivery, String username) {
 
         List<CartItemEntity> orderedPizzasCart = cartItemRepository.findByIdInAndUser_Username(pizzaIds, username);
 
         if (orderedPizzasCart.isEmpty()) {
-            return;
+            return false;
         }
 
         CartItemEntity cartItem = orderedPizzasCart.get(0);
@@ -76,7 +77,8 @@ public class OrderServiceImpl implements OrderService {
                 .setStatus(OrderStatusEnum.ЧАКАЩА)
                 .setTotal(totalPrice);
 
-        orderRepository.save(orderEntity);
+        OrderEntity saved = orderRepository.save(orderEntity);
+        return Objects.nonNull(saved);
     }
 
     @Override
