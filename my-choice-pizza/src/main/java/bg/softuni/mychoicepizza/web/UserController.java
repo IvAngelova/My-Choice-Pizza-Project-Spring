@@ -119,7 +119,8 @@ public class UserController {
         userProfileServiceModel.setId(id);
         userService.editProfile(userProfileServiceModel);
 
-        return "redirect:profile";
+        redirectAttributes.addFlashAttribute("success", "Промените по профила бяха запазени успешно!");
+        return "redirect:/";
     }
 
     @GetMapping("/profile/error")
